@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>겨울방학 독서 기록장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow column like a reading notebook — summary on top, tabs, then books grouped by level/subject, each with a 4-step status switch */
+:root {
+  --bg: #f3f6f4;
+  --paper: #ffffff;
+  --ink: #1d2a26;
+  --muted: #5d6d67;
+  --line: #d8e1dd;
+  --board: #24594b;      /* chalkboard green accent */
+  --board-soft: #e2eee9;
+  --none: #8a9893;
+  --bought: #b7791f;
+  --bought-soft: #fbf0dc;
+  --have: #2f6db3;
+  --have-soft: #e1ecf8;
+  --read: #2e8b57;
+  --read-soft: #def3e6;
+  --new: #c2416b;
+  --f-display: "Jua", "Noto Sans KR", system-ui, sans-serif;
+  --f-body: "Noto Sans KR", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121a17; --paper: #1a2420; --ink: #e6efeb; --muted: #9fb0a9; --line: #2c3a35;
+    --board: #7cc4ad; --board-soft: #1f3530; --none: #7d8c86;
+    --bought: #e3a94a; --bought-soft: #3a2e17; --have: #7fb0ea; --have-soft: #1b2c40;
+    --read: #6fcf97; --read-soft: #193726; --new: #f07ea1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121a17; --paper: #1a2420; --ink: #e6efeb; --muted: #9fb0a9; --line: #2c3a35;
+  --board: #7cc4ad; --board-soft: #1f3530; --none: #7d8c86;
+  --bought: #e3a94a; --bought-soft: #3a2e17; --have: #7fb0ea; --have-soft: #1b2c40;
+  --read: #6fcf97; --read-soft: #193726; --new: #f07ea1;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 20px; }
+header { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; color: var(--board); font-weight: 700; }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(28px, 6vw, 38px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); }
+
+.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stat { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.stat b { font-family: var(--f-display); font-weight: 400; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--muted); }
+.stat.read b { color: var(--read); } .stat.have b { color: var(--have); } .stat.bought b { color: var(--bought); } .stat.none b { color: var(--none); }
+.bar { grid-column: 1 / -1; height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; display: flex; }
+.bar i { display: block; height: 100%; transition: width .3s; }
+.bar .r { background: var(--read); } .bar .h { background: var(--have); } .bar .b { background: var(--bought); }
+
+.tabs { display: flex; gap: 8px; border-bottom: 2px solid var(--line); }
+.tab { font: inherit; font-weight: 700; font-size: 16px; background: none; border: 0; color: var(--muted); padding: 10px 6px; margin-bottom: -2px; border-bottom: 3px solid transparent; cursor: pointer; }
+.tab[aria-selected="true"] { color: var(--board); border-bottom-color: var(--board); }
+.tab small { font-weight: 500; font-size: 13px; margin-left: 4px; font-variant-numeric: tabular-nums; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--board); border-color: var(--board); color: var(--paper); }
+
+.note { margin: 0; font-size: 13px; color: var(--muted); background: var(--board-soft); border-radius: 8px; padding: 8px 12px; }
+
+.lock { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.lock label { font-size: 14px; font-weight: 700; flex: 1 1 200px; }
+.lock label small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+.lock input { font: inherit; font-size: 18px; letter-spacing: .3em; width: 7.5em; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); text-align: center; }
+.lock button { font: inherit; font-weight: 700; border: 0; border-radius: 8px; padding: 8px 16px; background: var(--board); color: var(--paper); cursor: pointer; }
+.unlocked { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+.unlocked button { font: inherit; font-size: 12px; background: none; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); padding: 2px 10px; cursor: pointer; }
+.group { display: flex; flex-direction: column; gap: 8px; }
+.group h2 { font-family: var(--f-display); font-weight: 400; font-size: 20px; margin: 8px 0 0; display: flex; align-items: baseline; gap: 8px; }
+.group h2 small { font-family: var(--f-body); font-size: 12px; color: var(--muted); }
+.book { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+.book[data-s="read"] { border-color: var(--read); }
+.top { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; }
+.meta { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.title { font-weight: 700; font-size: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.book[data-s="read"] .title span { text-decoration: line-through; text-decoration-color: var(--read); text-decoration-thickness: 2px; }
+.badge { font-size: 11px; font-weight: 700; color: var(--new); border: 1px solid var(--new); border-radius: 99px; padding: 0 7px; }
+.sub { font-size: 13px; color: var(--muted); }
+.done { font-size: 12px; color: var(--read); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: var(--bg); border-radius: 10px; padding: 3px; }
+.seg button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--muted); border-radius: 8px; padding: 7px 2px; cursor: pointer; white-space: nowrap; }
+.seg button:hover:not(:disabled) { color: var(--ink); }
+.seg button[aria-pressed="true"][data-v="none"] { background: var(--paper); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.seg button[aria-pressed="true"][data-v="bought"] { background: var(--bought-soft); color: var(--bought); font-weight: 700; }
+.seg button[aria-pressed="true"][data-v="have"] { background: var(--have-soft); color: var(--have); font-weight: 700; }
+.seg button[aria-pressed="true"][data-v="read"] { background: var(--read-soft); color: var(--read); font-weight: 700; }
+.seg button:disabled { cursor: default; opacity: .55; }
+button:focus-visible { outline: 2px solid var(--board); outline-offset: 2px; }
+.empty { color: var(--muted); text-align: center; padding: 24px 0; margin: 0; }
+footer { font-size: 12px; color: var(--muted); }
+@media (max-width: 520px) { .summary { grid-template-columns: repeat(2, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">새 학년 준비 · 초등 3학년</div>
+    <h1>겨울방학 독서 기록장</h1>
+    <p class="lede">책마다 상태 버튼을 누르면 바로 저장됩니다. <b>새 추천</b> 표시는 이번에 추가한 책입니다.</p>
+  </header>
+
+  <section class="summary" aria-label="전체 진행 현황">
+    <div class="stat read"><b id="c-read">0</b><span>다 읽음</span></div>
+    <div class="stat have"><b id="c-have">0</b><span>집에 있음</span></div>
+    <div class="stat bought"><b id="c-bought">0</b><span>구매함</span></div>
+    <div class="stat none"><b id="c-none">0</b><span>아직 없음</span></div>
+    <div class="bar" role="img" id="bar" aria-label="진행률"><i class="r"></i><i class="h"></i><i class="b"></i></div>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" id="tab-novel" role="tab" data-tab="novel" aria-selected="true">소설책<small id="n-novel"></small></button>
+    <button class="tab" id="tab-info" role="tab" data-tab="info" aria-selected="false">지식책<small id="n-info"></small></button>
+  </div>
+  <div class="filters" role="group" aria-label="상태로 보기">
+    <button class="chip" id="f-all" data-f="all" aria-pressed="true">전체</button>
+    <button class="chip" id="f-none" data-f="none" aria-pressed="false">아직 없음</button>
+    <button class="chip" id="f-ready" data-f="ready" aria-pressed="false">읽을 준비됨 (구매·보유)</button>
+    <button class="chip" id="f-read" data-f="read" aria-pressed="false">다 읽음</button>
+  </div>
+  <form class="lock" id="lock" hidden>
+    <label for="code">가족 암호를 입력하면 체크할 수 있습니다<small>이 기기에서 한 번만 입력하면 됩니다. 암호가 없으면 보기만 가능합니다.</small></label>
+    <input id="code" type="password" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="••••">
+    <button type="submit">확인</button>
+  </form>
+  <div class="unlocked" id="unlocked" hidden>🔓 이 기기에서 체크할 수 있습니다 <button type="button" id="relock">암호 지우기</button></div>
+  <p class="note" id="note">저장된 기록을 불러오는 중입니다…</p>
+  <div id="list"></div>
+  <footer>‘다 읽음’을 누르면 그날 날짜가 함께 기록됩니다. 출판사·판본은 바뀔 수 있으니 도서관에서 먼저 빌려 보셔도 좋습니다.</footer>
+</div>
+
+<script>
+const BOOKS = [
+  // 소설 1단계
+  {id:"n01",k:"novel",g:"1단계 · 쉽게 시작",t:"책 먹는 여우",a:"프란치스카 비어만"},
+  {id:"n02",k:"novel",g:"1단계 · 쉽게 시작",t:"만복이네 떡집",a:"김리리"},
+  {id:"n03",k:"novel",g:"1단계 · 쉽게 시작",t:"아드님, 진지 드세요",a:"강민경"},
+  {id:"n11",k:"novel",g:"1단계 · 쉽게 시작",t:"짜장 짬뽕 탕수육",a:"김영주"},
+  {id:"n12",k:"novel",g:"1단계 · 쉽게 시작",t:"고양이 해결사 깜냥",a:"홍민정"},
+  {id:"n13",k:"novel",g:"1단계 · 쉽게 시작",t:"화요일의 두꺼비",a:"러셀 에릭슨"},
+  {id:"n21",k:"novel",g:"1단계 · 쉽게 시작",t:"칠판 앞에 나가기 싫어!",a:"다니엘 포세트",n:1,d:"발표가 무서운 아이의 마음, 60쪽 안팎"},
+  {id:"n22",k:"novel",g:"1단계 · 쉽게 시작",t:"쿵푸 아니고 똥푸",a:"차영아",n:1,d:"웃기고 따뜻한 단편 세 편"},
+  {id:"n23",k:"novel",g:"1단계 · 쉽게 시작",t:"똥볶이 할멈",a:"강효미",n:1,d:"분식집 할멈이 나쁜 어린이를 혼내 주는 시리즈"},
+  // 소설 2단계
+  {id:"n04",k:"novel",g:"2단계 · 3학년 수준",t:"나쁜 어린이 표",a:"황선미"},
+  {id:"n05",k:"novel",g:"2단계 · 3학년 수준",t:"엄마 사용법",a:"김성진"},
+  {id:"n06",k:"novel",g:"2단계 · 3학년 수준",t:"전천당",a:"히로시마 레이코"},
+  {id:"n07",k:"novel",g:"2단계 · 3학년 수준",t:"프린들 주세요",a:"앤드루 클레먼츠"},
+  {id:"n14",k:"novel",g:"2단계 · 3학년 수준",t:"가방 들어주는 아이",a:"고정욱"},
+  {id:"n15",k:"novel",g:"2단계 · 3학년 수준",t:"잘못 뽑은 반장",a:"이은재"},
+  {id:"n16",k:"novel",g:"2단계 · 3학년 수준",t:"수상한 아파트",a:"박현숙"},
+  {id:"n17",k:"novel",g:"2단계 · 3학년 수준",t:"엘머의 모험",a:"루스 스타일스 개니트"},
+  {id:"n24",k:"novel",g:"2단계 · 3학년 수준",t:"양파의 왕따 일기",a:"문선이",n:1,d:"친구 관계를 생각해 보게 하는 학급 이야기"},
+  {id:"n25",k:"novel",g:"2단계 · 3학년 수준",t:"소리 질러, 운동장",a:"진형민",n:1,d:"운동장을 지키려는 아이들, 씩씩한 여자아이 등장"},
+  {id:"n26",k:"novel",g:"2단계 · 3학년 수준",t:"마법의 시간여행",a:"메리 폽 어즈번",n:1,d:"남매가 시대와 나라를 여행, 사회 과목과 연결"},
+  // 소설 3단계
+  {id:"n08",k:"novel",g:"3단계 · 조금 도전",t:"내 이름은 삐삐 롱스타킹",a:"아스트리드 린드그렌"},
+  {id:"n09",k:"novel",g:"3단계 · 조금 도전",t:"샬롯의 거미줄",a:"E. B. 화이트"},
+  {id:"n10",k:"novel",g:"3단계 · 조금 도전",t:"긴긴밤",a:"루리"},
+  {id:"n18",k:"novel",g:"3단계 · 조금 도전",t:"멋진 여우 씨",a:"로알드 달"},
+  {id:"n19",k:"novel",g:"3단계 · 조금 도전",t:"마틸다",a:"로알드 달"},
+  {id:"n20",k:"novel",g:"3단계 · 조금 도전",t:"오즈의 마법사",a:"L. 프랭크 바움"},
+  {id:"n27",k:"novel",g:"3단계 · 조금 도전",t:"마당을 나온 암탉",a:"황선미",n:1,d:"꿈을 찾아 나선 암탉 잎싹의 이야기"},
+  {id:"n28",k:"novel",g:"3단계 · 조금 도전",t:"찰리와 초콜릿 공장",a:"로알드 달",n:1,d:"『멋진 여우 씨』 다음에 읽기 좋음"},
+  {id:"n29",k:"novel",g:"3단계 · 조금 도전",t:"내 친구 윈딕시",a:"케이트 디카밀로",n:1,d:"여자아이 오팔과 떠돌이 개의 우정"},
+  {id:"n30",k:"novel",g:"3단계 · 조금 도전",t:"에드워드 툴레인의 신기한 여행",a:"케이트 디카밀로",n:1,d:"도자기 토끼가 사랑을 배우는 여행"},
+  {id:"n31",k:"novel",g:"3단계 · 조금 도전",t:"비밀의 화원",a:"프랜시스 호지슨 버넷",n:1,d:"고전 명작, 어린이용 판본으로 시작"},
+  // 지식책
+  {id:"k01",k:"info",g:"과학",t:"신기한 스쿨버스",a:"조애너 콜"},
+  {id:"k02",k:"info",g:"과학",t:"Why? 시리즈",a:"예림당"},
+  {id:"k07",k:"info",g:"과학",t:"내일은 실험왕",a:"곰돌이 co."},
+  {id:"k08",k:"info",g:"과학",t:"살아남기 시리즈",a:"곰돌이 co."},
+  {id:"k06",k:"info",g:"과학",t:"세밀화로 그린 보리 어린이 도감",a:"보리"},
+  {id:"k16",k:"info",g:"과학",t:"흔한남매 과학 탐험대",a:"아이휴먼",n:1,d:"인기 캐릭터와 함께 보는 과학 만화"},
+  {id:"k17",k:"info",g:"과학",t:"내일은 발명왕",a:"곰돌이 co.",n:1,d:"생활 속 발명 원리, 만들기 활동 연계"},
+  {id:"k19",k:"info",g:"과학",t:"우리 몸의 구멍",a:"허은미",n:1,d:"눈·코·입 등 몸의 구멍이 하는 일, 그림책"},
+  {id:"k03",k:"info",g:"사회 · 역사 · 지리",t:"맵스(MAPS)",a:"미지엘린스키 부부"},
+  {id:"k04",k:"info",g:"사회 · 역사 · 지리",t:"용선생 만화 한국사",a:"사회평론"},
+  {id:"k05",k:"info",g:"사회 · 역사 · 지리",t:"설민석의 한국사 대모험",a:"아이휴먼"},
+  {id:"k13",k:"info",g:"사회 · 역사 · 지리",t:"Who? 인물 시리즈",a:"다산어린이",n:1,d:"위인·인물 학습만화, 관심 인물부터"},
+  {id:"k18",k:"info",g:"사회 · 역사 · 지리",t:"엄마는 해녀입니다",a:"고희영",n:1,d:"제주 해녀 이야기, 지역과 직업 이해"},
+  {id:"k15",k:"info",g:"사회 · 역사 · 지리",t:"열두 살에 부자가 된 키라",a:"보도 섀퍼",n:1,d:"용돈·저축으로 배우는 경제, 부모님과 함께"},
+  {id:"k09",k:"info",g:"국어 · 수학 · 생각",t:"수학탐정스",a:"조인하"},
+  {id:"k10",k:"info",g:"국어 · 수학 · 생각",t:"마법천자문",a:"아울북"},
+  {id:"k11",k:"info",g:"국어 · 수학 · 생각",t:"이게 정말 사과일까?",a:"요시타케 신스케"},
+  {id:"k14",k:"info",g:"국어 · 수학 · 생각",t:"그리스 로마 신화 (만화)",a:"홍은영",n:1,d:"서양 고전의 바탕, 이야기 상식"},
+  {id:"k12",k:"info",g:"잡지",t:"어린이과학동아",a:"동아사이언스"},
+  {id:"k20",k:"info",g:"잡지",t:"개똥이네 놀이터",a:"보리",n:1,d:"동화·자연·놀이가 함께 실린 월간지"}
+];
+const STATES = [["none","아직 없음"],["bought","구매함"],["have","집에 있음"],["read","다 읽음"]];
+const LABEL = Object.fromEntries(STATES);
+
+const CODE_KEY = "reading-log-family-code";
+let code = "", statuses = {}, loaded = false, tab = "novel", filter = "all";
+try { code = localStorage.getItem(CODE_KEY) || ""; } catch (e) {}
+const saving = new Set();
+const $ = (id) => document.getElementById(id);
+
+function st(id){ return (statuses[id] && statuses[id].status) || "none"; }
+function setNote(msg){ const n = $("note"); n.textContent = msg || ""; n.hidden = !msg; }
+function today(){ const d = new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function fmt(s){ const p = String(s).split("-"); return p.length===3 ? (+p[1])+"/"+(+p[2])+" 완독" : "완독"; }
+function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text!=null) e.textContent = text; return e; }
+
+function render(){
+  const c = {none:0,bought:0,have:0,read:0};
+  BOOKS.forEach(b => c[st(b.id)]++);
+  for (const k in c) $("c-"+k).textContent = c[k];
+  const T = BOOKS.length, bar = $("bar").children;
+  bar[0].style.width = (c.read/T*100)+"%"; bar[1].style.width = (c.have/T*100)+"%"; bar[2].style.width = (c.bought/T*100)+"%";
+  $("bar").setAttribute("aria-label", "전체 "+T+"권 중 "+c.read+"권 읽음");
+  ["novel","info"].forEach(k => {
+    const all = BOOKS.filter(b => b.k===k), r = all.filter(b => st(b.id)==="read").length;
+    $("n-"+k).textContent = r+"/"+all.length;
+    $("tab-"+k).setAttribute("aria-selected", String(tab===k));
+  });
+  document.querySelectorAll(".chip").forEach(ch => ch.setAttribute("aria-pressed", String(ch.dataset.f===filter)));
+
+  $("lock").hidden = !!code; $("unlocked").hidden = !code;
+  const list = $("list"); list.replaceChildren();
+  const shown = BOOKS.filter(b => b.k===tab).filter(b => {
+    const s = st(b.id);
+    return filter==="all" || (filter==="ready" ? (s==="bought"||s==="have") : s===filter);
+  });
+  if (!shown.length) { list.append(el("p","empty","이 조건에 맞는 책이 없습니다.")); return; }
+  const groups = [];
+  shown.forEach(b => { let g = groups.find(x => x.name===b.g); if(!g){ g={name:b.g,items:[]}; groups.push(g);} g.items.push(b); });
+  groups.forEach(g => {
+    const sec = el("section","group"), h = el("h2",null,g.name);
+    h.append(el("small",null,g.items.length+"권"));
+    sec.append(h);
+    g.items.forEach(b => {
+      const s = st(b.id), card = el("article","book"); card.dataset.s = s;
+      const top = el("div","top"), meta = el("div","meta"), title = el("div","title");
+      title.append(el("span",null,b.t)); if (b.n) title.append(el("span","badge","새 추천"));
+      meta.append(title, el("div","sub", b.a + (b.d ? " · "+b.d : "")));
+      top.append(meta);
+      if (s==="read") top.append(el("span","done", statuses[b.id] && statuses[b.id].readOn ? fmt(statuses[b.id].readOn) : "완독"));
+      const seg = el("div","seg"); seg.setAttribute("role","group"); seg.setAttribute("aria-label", b.t+" 상태");
+      STATES.forEach(([v,label]) => {
+        const btn = el("button",null,label); btn.type = "button"; btn.dataset.v = v; btn.dataset.id = b.id;
+        btn.setAttribute("aria-pressed", String(s===v));
+        btn.disabled = !loaded || saving.has(b.id);
+        seg.append(btn);
+      });
+      card.append(top, seg); sec.append(card);
+    });
+    list.append(sec);
+  });
+}
+
+async function choose(id, v){
+  if (st(id)===v) return;
+  const prev = statuses[id];
+  const next = v==="read" ? {status:v, readOn: (prev && prev.status==="read" && prev.readOn) || today()} : {status:v};
+  if (!code) { setNote("체크하려면 먼저 가족 암호를 입력해 주세요."); $("code").focus(); return; }
+  statuses = Object.assign({}, statuses, {[id]: next});
+  saving.add(id); render();
+  try {
+    const res = await post(Object.assign({id}, next));
+    if (res.status === 401) { forget(); throw new Error("code"); }
+    if (!res.ok) throw new Error("save");
+    setNote("");
+  } catch (e) {
+    statuses = Object.assign({}, statuses, {[id]: prev});
+    setNote(e.message === "code" ? "가족 암호가 바뀌었습니다. 새 암호를 다시 입력해 주세요." : "저장하지 못했습니다. 인터넷 연결을 확인한 뒤 다시 눌러 주세요.");
+  }
+  saving.delete(id); render();
+}
+
+function post(body){
+  return fetch("/api/books", { method: "POST", headers: { "content-type": "application/json", "x-family-code": code }, body: JSON.stringify(body) });
+}
+function forget(){ code = ""; try { localStorage.removeItem(CODE_KEY); } catch (e) {} }
+
+$("lock").addEventListener("submit", async e => {
+  e.preventDefault();
+  const v = $("code").value.trim(); if (!v) return;
+  code = v;
+  try {
+    const res = await post({verify: true});
+    if (res.ok) { try { localStorage.setItem(CODE_KEY, v); } catch (e) {} $("code").value = ""; setNote("확인되었습니다. 이제 이 기기에서 체크할 수 있습니다."); }
+    else { forget(); setNote(res.status === 401 ? "암호가 맞지 않습니다. 다시 확인해 주세요." : "확인하지 못했습니다. 잠시 후 다시 시도해 주세요."); }
+  } catch (err) { forget(); setNote("확인하지 못했습니다. 인터넷 연결을 확인해 주세요."); }
+  render();
+});
+$("relock").addEventListener("click", () => { forget(); setNote(""); render(); });
+
+$("list").addEventListener("click", e => { const b = e.target.closest(".seg button"); if (b && !b.disabled) choose(b.dataset.id, b.dataset.v); });
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => { tab = t.dataset.tab; render(); }));
+document.querySelectorAll(".chip").forEach(ch => ch.addEventListener("click", () => { filter = ch.dataset.f; render(); }));
+
+render();
+
+// Load records, then refresh every 30 s while the page is visible so family members see each other's checks.
+async function load(){
+  if (saving.size) return;
+  try {
+    const res = await fetch("/api/books", { cache: "no-store" });
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    if (saving.size) return;
+    statuses = data.statuses || {};
+    if (!loaded) setNote("");
+    loaded = true;
+  } catch (e) {
+    if (!loaded) { loaded = true; setNote("저장된 기록을 불러오지 못했습니다. 잠시 후 다시 열어 주세요."); }
+  }
+  render();
+}
+load();
+setInterval(() => { if (document.visibilityState === "visible") load(); }, 30000);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") load(); });
+</script>
+</body>
+</html>
