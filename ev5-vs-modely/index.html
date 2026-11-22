@@ -3,511 +3,485 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="천안 등록 기준 보조금 반영 실구매가 비교. 2026년 12월과 2027년 시나리오, 가격 변동, 테슬라 구매처 정리.">
+<title>EV5 vs 모델Y 실구매가</title>
+<meta name="description" content="천안 등록 기준 보조금 반영 실구매가 비교. 7월 선계약 기준 출고 시점별 시나리오, 가격 변동, 테슬라 구매처 정리.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="전기차 구매 검토">
 <meta property="og:title" content="EV5 vs 모델Y 실구매가 비교">
-<meta property="og:description" content="천안 등록 기준 보조금 반영 실구매가 비교. 2026년 12월과 2027년 시나리오, 가격 변동, 테슬라 구매처 정리.">
+<meta property="og:description" content="천안 등록 기준 보조금 반영 실구매가 비교. 7월 선계약 기준 출고 시점별 시나리오, 가격 변동, 테슬라 구매처 정리.">
 <meta property="og:url" content="https://ev5-modely.netlify.app/ev5-vs-modely/">
 <meta property="og:image" content="https://ev5-modely.netlify.app/ev5-vs-modely/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<title>EV5 vs 모델Y 실구매가</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#eef2f6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
 <style>
-/* Layout: 단일 컬럼 회의 브리핑 — 결론 → 시나리오 차트 → 상세표 → 제도 변화 → 유의사항 → 출처 */
+/* Layout: 휴대폰 우선 단일 컬럼 구매 브리핑 — 도로 위 두 차(히어로) → 영수증형 비교 카드 → 숫자 타일 → 시나리오 전환 → 타임라인 → 체크리스트 → 접이식 상세 */
 :root {
-  --bg: #f6f7f9;
-  --surface: #ffffff;
-  --fg: #14171c;
-  --fg-2: #4a515c;
-  --muted: #7a818c;
-  --line: #dde1e7;
-  --accent: #23497a;
-  --accent-soft: #e8eef6;
+  color-scheme: light;
+  --bg: #eef2f6;
+  --paper: #ffffff;
+  --ink: #0e1a2b;
+  --ink-2: #43506a;
+  --muted: #7b879c;
+  --line: #d9e0ea;
   --ev5: #2a78d6;
+  --ev5-deep: #1b5aa8;
+  --ev5-soft: #e3eefb;
   --my: #eb6834;
-  --warn: #9a5b00;
-  --warn-soft: #fbf1df;
-  --ok: #1e6b3a;
-  --ok-soft: #e3f2e8;
-  --none-soft: #eceef2;
-  --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-  --font-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #121418; --surface: #1b1e24; --fg: #eceef2; --fg-2: #b8bec8; --muted: #8b929d;
-    --line: #2e333b; --accent: #8fb3e6; --accent-soft: #1f2a3a;
-    --ev5: #3987e5; --my: #d95926; --warn: #e3b05a; --warn-soft: #2e2618; --ok: #7fd09a; --ok-soft: #17291e; --none-soft: #262a31;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #121418; --surface: #1b1e24; --fg: #eceef2; --fg-2: #b8bec8; --muted: #8b929d;
-  --line: #2e333b; --accent: #8fb3e6; --accent-soft: #1f2a3a;
-  --ev5: #3987e5; --my: #d95926; --warn: #e3b05a; --warn-soft: #2e2618; --ok: #7fd09a; --ok-soft: #17291e; --none-soft: #262a31;
-  color-scheme: dark;
+  --my-deep: #c24e1f;
+  --my-soft: #fdece4;
+  --road: #2b3443;
+  --lane: #f2c230;
+  --ok: #1e6b3a; --ok-soft: #e1f2e7;
+  --warn: #93560a; --warn-soft: #fbefdc;
+  --f-display: "Gothic A1", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --f-num: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+  --r: 18px;
 }
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
-  background: var(--bg); color: var(--fg); font-family: var(--font-body);
-  font-size: 15px; line-height: 1.65; word-break: keep-all; overflow-wrap: anywhere;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 40px 64px;
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.65;
+  word-break: keep-all; overflow-wrap: anywhere;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
-h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.3; }
-h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
-h2 { font-size: 19px; font-weight: 700; }
+.in { max-width: 760px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); margin: 0; line-height: 1.25; text-wrap: balance; letter-spacing: -0.02em; }
 p { margin: 0; }
-.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
-.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; }
-.sec { display: flex; flex-direction: column; gap: 16px; }
-.sec-head { display: flex; flex-direction: column; gap: 4px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-.sec-head p { color: var(--fg-2); font-size: 14px; }
+.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.kicker { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--ev5-deep); }
+section { padding-block: 44px 0; }
+.sec-title { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.sec-title h2 { font-size: 26px; font-weight: 800; }
+.sec-title p { color: var(--ink-2); font-size: 15px; }
 
-/* Header */
-header { display: flex; flex-direction: column; gap: 12px; }
-.meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 13px; }
-.meta b { color: var(--fg-2); font-weight: 500; }
+/* ---------- Hero ---------- */
+.hero { padding-block: 36px 0; overflow: hidden; }
+.hero h1 { font-size: clamp(34px, 9vw, 56px); font-weight: 900; margin-top: 12px; }
+.hero h1 .big { display: inline-flex; align-items: baseline; gap: 6px; color: var(--ev5); font-family: var(--f-num); font-weight: 700; font-size: 1.55em; letter-spacing: -0.01em; line-height: 1; }
+.hero h1 .big small { font-family: var(--f-display); font-size: 0.42em; font-weight: 800; color: var(--ink); }
+.lede { margin-top: 14px; font-size: 16px; color: var(--ink-2); max-width: 34em; }
+.stage { position: relative; margin-top: 26px; }
+.cars { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; padding-inline: 4px; }
+.cars svg { width: 46%; height: auto; display: block; }
+.vs { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-family: var(--f-num); font-weight: 700; font-size: 20px; letter-spacing: 0.02em; box-shadow: 0 0 0 6px var(--bg); }
+.road { height: 30px; background: var(--road); margin-top: -6px; position: relative; }
+.road::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; transform: translateY(-50%); background: repeating-linear-gradient(90deg, var(--lane) 0 34px, transparent 34px 58px); }
+.road-cap { background: var(--road); color: #c9d2df; font-size: 12px; padding: 0 0 12px; }
+.road-cap .in { display: flex; justify-content: space-between; gap: 12px; }
 
-/* Conclusion */
-.verdict { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; display: flex; flex-direction: column; gap: 18px; }
-.verdict-lead { font-size: 19px; font-weight: 600; line-height: 1.5; }
-.verdict-lead em { font-style: normal; color: var(--accent); }
-.points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
-.points li { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: 2px solid var(--accent-soft); min-width: 0; }
-.points h3 { font-size: 15px; }
-.points p { font-size: 14px; color: var(--fg-2); }
+/* ---------- Duel cards ---------- */
+.duel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.car { background: var(--paper); border-radius: var(--r); padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; border-top: 6px solid var(--c); box-shadow: 0 1px 0 var(--line); }
+.car.ev5 { --c: var(--ev5); --cs: var(--ev5-soft); --cd: var(--ev5-deep); }
+.car.my { --c: var(--my); --cs: var(--my-soft); --cd: var(--my-deep); }
+.maker { display: inline-block; align-self: flex-start; font-size: 12px; font-weight: 700; color: var(--cd); background: var(--cs); padding: 2px 10px; border-radius: 999px; }
+.car h3 { font-size: 18px; font-weight: 800; }
+.trim { font-size: 13px; color: var(--muted); margin-top: -6px; }
+.price { display: flex; align-items: baseline; gap: 4px; }
+.price .n { font-family: var(--f-num); font-weight: 700; font-size: clamp(38px, 11vw, 56px); line-height: 1; color: var(--ink); }
+.price .u { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.receipt { margin: 0; padding: 12px; background: var(--bg); border-radius: 12px; font-size: 13px; display: flex; flex-direction: column; gap: 4px; }
+.receipt div { display: flex; justify-content: space-between; gap: 8px; }
+.receipt dt { color: var(--ink-2); }
+.receipt dd { margin: 0; font-family: var(--f-num); font-weight: 600; font-size: 15px; }
+.receipt .minus dd { color: var(--cd); }
+.receipt .sum { border-top: 1.5px dashed var(--muted); margin-top: 4px; padding-top: 6px; font-weight: 700; }
+.receipt .sum dt { color: var(--ink); }
+.receipt .sum dd { font-size: 17px; font-weight: 700; }
+.facts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--ink-2); }
+.facts b { display: block; font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; }
 
-/* Gap tiles */
-.gaps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.gap { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.gap .k { font-size: 12px; color: var(--muted); }
-.gap .v { font-size: 24px; font-weight: 500; }
-.gap .v small { font-size: 13px; color: var(--fg-2); font-family: var(--font-body); margin-left: 2px; }
-.gap .s { font-size: 12px; color: var(--fg-2); }
+/* ---------- Stat tiles ---------- */
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.stat { background: var(--paper); border-radius: var(--r); padding: 18px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.stat .v { font-family: var(--f-num); font-weight: 700; font-size: 40px; line-height: 1.05; }
+.stat .v small { font-family: var(--f-display); font-size: 16px; font-weight: 800; margin-left: 2px; }
+.stat .k { font-weight: 700; font-size: 15px; }
+.stat .d { font-size: 13px; color: var(--ink-2); }
 
-/* Chart */
-.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 16px; position: relative; }
-.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--fg-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
+/* ---------- Scenario ---------- */
+.panel { background: var(--paper); border-radius: var(--r); padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.seg { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-inline: -4px; padding: 2px 4px; }
+.seg::-webkit-scrollbar { display: none; }
+.seg button { flex: 0 0 auto; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); background: var(--bg); border: 1.5px solid transparent; border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.seg button:focus-visible { outline: none; border-color: var(--ev5); }
+.bars { display: flex; flex-direction: column; gap: 14px; }
+.bar-lab { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.bar-lab .num { font-size: 24px; font-weight: 700; }
+.bar-lab .num small { font-family: var(--f-body); font-size: 13px; color: var(--ink-2); margin-left: 2px; font-weight: 500; }
+.track { height: 16px; background: var(--bg); border-radius: 0 6px 6px 0; overflow: hidden; }
+.fill { height: 100%; border-radius: 0 6px 6px 0; transition: width .45s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+.bar-det { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: var(--f-num); font-size: 14px; }
+.gapcall { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--ev5-soft); border-radius: 12px; padding: 12px 16px; }
+.gapcall span { font-weight: 700; color: var(--ev5-deep); font-size: 15px; }
+.gapcall .num { font-size: 30px; font-weight: 700; color: var(--ev5-deep); }
+.scn-note { font-size: 14px; color: var(--ink-2); }
+
+/* ---------- Timeline ---------- */
+.tl { list-style: none; margin: 0; padding: 0; position: relative; }
+.tl::before { content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+.tl li { position: relative; padding: 0 0 22px 40px; }
+.tl li:last-child { padding-bottom: 0; }
+.dot { position: absolute; left: 3px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--paper); border: 4px solid var(--ink); }
+.dot.ev5 { border-color: var(--ev5); } .dot.my { border-color: var(--my); } .dot.both { border-color: var(--ink); }
+.tl time { font-family: var(--f-num); font-weight: 700; font-size: 17px; color: var(--ink); }
+.tl h3 { font-size: 17px; font-weight: 800; margin-top: 2px; }
+.tl p { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+.chip { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; vertical-align: 2px; margin-left: 4px; }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.chip.ev5 { background: var(--ev5-soft); color: var(--ev5-deep); }
+.chip.my { background: var(--my-soft); color: var(--my-deep); }
+.chip.none { background: var(--bg); color: var(--ink-2); }
+
+/* ---------- Checklist ---------- */
+.checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.checks label { display: flex; gap: 14px; align-items: flex-start; background: var(--paper); border-radius: 14px; padding: 14px 16px; cursor: pointer; }
+.checks input { appearance: none; -webkit-appearance: none; flex: 0 0 auto; width: 24px; height: 24px; border-radius: 7px; border: 2px solid var(--muted); margin: 1px 0 0; display: grid; place-items: center; cursor: pointer; background: var(--paper); }
+.checks input:checked { background: var(--ok); border-color: var(--ok); }
+.checks input:checked::after { content: ""; width: 7px; height: 12px; border: solid #fff; border-width: 0 3px 3px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.checks input:focus-visible { outline: 3px solid var(--ev5-soft); outline-offset: 2px; }
+.checks b { display: block; font-size: 15px; }
+.checks span { font-size: 14px; color: var(--ink-2); }
+.checks input:checked + div b { text-decoration: line-through; color: var(--muted); }
+
+/* ---------- Shops ---------- */
+.shops { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.shop { background: var(--paper); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.shop .km { font-family: var(--f-num); font-size: 34px; font-weight: 700; line-height: 1; }
+.shop .km small { font-family: var(--f-body); font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.shop h3 { font-size: 16px; font-weight: 800; }
+.shop p { font-size: 13px; color: var(--ink-2); }
+.note { margin-top: 12px; font-size: 14px; color: var(--ink-2); background: var(--paper); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.note b { color: var(--ink); }
+
+/* ---------- Details ---------- */
+details { background: var(--paper); border-radius: var(--r); margin-top: 10px; }
+summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--f-display); font-weight: 800; font-size: 17px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: ""; width: 10px; height: 10px; border: solid var(--ink-2); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); transition: transform .2s; flex: 0 0 auto; margin-top: -4px; }
+details[open] summary::after { transform: rotate(-135deg); margin-top: 4px; }
+summary:focus-visible { outline: 3px solid var(--ev5-soft); border-radius: var(--r); }
+.dbody { padding: 0 18px 18px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+.rows { display: flex; flex-direction: column; }
+.rows > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 4px 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.rows > div:first-child { border-top: 0; }
+.rows .when { font-family: var(--f-num); font-weight: 700; font-size: 15px; }
+.rows .what { color: var(--ink-2); }
+.rows .what b { color: var(--ink); font-family: var(--f-num); font-size: 16px; }
+.grp-h { font-weight: 800; font-family: var(--f-display); font-size: 15px; display: flex; align-items: center; gap: 8px; margin-top: 4px; }
 .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-.group { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 16px; align-items: center; padding-block: 10px; border-top: 1px solid var(--line); }
-.group:first-of-type { border-top: 0; }
-.g-label { font-size: 13px; font-weight: 600; line-height: 1.4; }
-.g-label small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
-.bars { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.bar-row { display: flex; align-items: center; gap: 8px; height: 22px; cursor: default; }
-.bar { height: 16px; border-radius: 0 4px 4px 0; transition: opacity .15s; }
-.bar-row:hover .bar, .bar-row:focus-visible .bar { opacity: 0.8; }
-.bar-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
-.bar-val { font-family: var(--font-num); font-size: 12px; color: var(--fg); white-space: nowrap; }
-.axis { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; }
-.axis-track { position: relative; height: 18px; border-top: 1px solid var(--line); }
-.axis-track span { position: absolute; top: 2px; transform: translateX(-50%); font-family: var(--font-num); font-size: 11px; color: var(--muted); }
-.axis-track span:first-child { transform: none; }
-.chart-note { font-size: 12px; color: var(--muted); }
-.tip { position: absolute; pointer-events: none; background: var(--fg); color: var(--bg); font-size: 12px; padding: 6px 10px; border-radius: 6px; white-space: nowrap; z-index: 5; }
+.calc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.calc > div { background: var(--bg); border-radius: 12px; padding: 12px; min-width: 0; }
+.calc h4 { margin: 0 0 6px; font-size: 13px; color: var(--ink-2); font-weight: 600; }
+.calc .r { display: flex; justify-content: space-between; gap: 6px; font-size: 13px; }
+.calc .r .num { font-size: 15px; font-weight: 600; }
+.src { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.src a { color: var(--ev5-deep); text-decoration: none; }
+.src a:hover, .src a:focus-visible { text-decoration: underline; }
 
-/* Tables */
-.tbl-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 680px; }
-th, td { padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
-th:first-child, td:first-child { text-align: left; }
-thead th { font-size: 12px; font-weight: 600; color: var(--fg-2); background: var(--accent-soft); }
-tbody tr:last-child td { border-bottom: 0; }
-td.num, td .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
-.carname { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
-.hl { font-weight: 600; }
-.sub { color: var(--muted); font-size: 12px; font-family: var(--font-body); }
-.pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); font-family: var(--font-body); }
-.pill.ok { background: var(--ok-soft); color: var(--ok); }
-.pill.none { background: var(--none-soft); color: var(--fg-2); }
-.status td:nth-child(2) { text-align: left; }
-.status td { white-space: normal; vertical-align: top; }
-.status td:first-child { white-space: nowrap; font-weight: 600; }
-.status td:last-child { text-align: left; color: var(--fg-2); }
-.notes { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--fg-2); font-size: 14px; }
+footer { padding-block: 40px 48px; color: var(--muted); font-size: 13px; }
+footer .in { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--line); padding-top: 18px; }
 
-/* Policy */
-.policy td:nth-child(2), .policy td:nth-child(3) { font-family: var(--font-num); }
-.arrow { color: var(--muted); }
-
-/* Risks */
-.risks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.risk { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 4px 8px 8px 4px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.risk h3 { font-size: 14px; }
-.risk p { font-size: 13px; color: var(--fg-2); }
-
-/* Sources */
-.sources { columns: 2; column-gap: 32px; font-size: 13px; margin: 0; padding-left: 18px; color: var(--fg-2); }
-.sources li { break-inside: avoid; margin-bottom: 4px; }
-.sources a { color: var(--accent); text-decoration: none; }
-.sources a:hover, .sources a:focus-visible { text-decoration: underline; }
-
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6; display: flex; gap: 6px; overflow-x: auto; padding-block: 8px; margin-block: -28px; background: var(--bg); scrollbar-width: none; }
-.toc::-webkit-scrollbar { display: none; }
-.toc a { flex: 0 0 auto; font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--fg-2); text-decoration: none; }
-.toc a:hover, .toc a:focus-visible { color: var(--accent); border-color: var(--accent); outline: none; }
-h2 { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 64px); }
-@media (max-width: 720px) {
-  body { padding-block: 24px 48px; }
-  h1 { font-size: 24px; }
-  .points { grid-template-columns: minmax(0, 1fr); }
-  .gaps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .group, .axis { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .axis > div:first-child { display: none; }
-  .risks { grid-template-columns: minmax(0, 1fr); }
-  .sources { columns: 1; }
+@media (min-width: 720px) {
+  .hero { padding-top: 56px; }
+  .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .car { padding: 20px 22px 22px; }
+  .car h3 { font-size: 21px; }
+  .receipt { font-size: 14px; padding: 14px 16px; }
+  .sec-title h2 { font-size: 30px; }
 }
-@media (max-width: 640px) {
-  body { font-size: 16px; }
-  .wrap { gap: 32px; }
-  .verdict { padding: 18px; }
-  .verdict-lead { font-size: 17px; }
-  .gap .v { font-size: 22px; }
-  .tbl-wrap { overflow: visible; background: transparent; border: 0; border-radius: 0; }
-  table { min-width: 0; font-size: 15px; }
-  thead { display: none; }
-  table, tbody, tr, td { display: block; width: 100%; }
-  tbody tr { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 6px 14px; margin-bottom: 10px; }
-  tbody tr:last-child { margin-bottom: 0; }
-  td, .status td, .status td:last-child, .status td:nth-child(2) { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: baseline; column-gap: 6px; row-gap: 2px; padding: 8px 0; border-bottom: 1px dashed var(--line); text-align: right; white-space: normal; color: var(--fg); }
-  td::before { content: attr(data-label); flex: 0 0 auto; max-width: 42%; margin-right: auto; text-align: left; font-family: var(--font-body); font-size: 13px; font-weight: 400; color: var(--muted); }
-  td:first-child, .status td:first-child { justify-content: flex-start; text-align: left; font-size: 16px; font-weight: 700; border-bottom: 1px solid var(--line); padding-block: 10px; white-space: normal; }
-  td:first-child::before { content: none; }
-  tbody tr td:last-child { border-bottom: 0; }
-  tr.grp { background: transparent; border: 0; padding: 10px 0 2px; margin-bottom: 4px; }
-  tr.grp td { border: 0; padding: 0; justify-content: flex-start; gap: 8px; }
-  tr.grp td::before { content: none; }
-  .policy td:nth-child(2), .policy td:nth-child(3) { font-family: var(--font-num); }
-  .notes { font-size: 15px; }
-  .sources { font-size: 14px; }
+@media (max-width: 380px) {
+  .duel { gap: 8px; }
+  .car { padding: 14px 12px 16px; }
+  .receipt { padding: 10px; font-size: 12px; }
 }
-@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-
-<header>
-  <div class="eyebrow">회의자료 · 전기차 구매 검토</div>
-  <h1>기아 EV5 vs 테슬라 모델Y 실구매가 비교</h1>
-  <div class="meta">
-    <span><b>기준일</b> 2026년 11월 22일</span>
-    <span><b>단위</b> 만 원 (세제혜택 후 가격)</span>
-    <span><b>보조금 기준</b> 충남 천안시 (등록지)</span>
-    <span><b>비교 시점</b> 2026년 12월 · 2027년 (추정)</span>
-    <span><b>차량</b> EV5 2027년형 · 모델Y 현행</span>
-    <span><b>테슬라 구매처</b> 인천 또는 스타필드 안성</span>
-    <span><b>정책 확인</b> 2026년 11월 22일</span>
+<header class="hero">
+  <div class="in">
+    <p class="kicker">천안 등록 · 보조금 반영 실구매가 · 2026.11.22 기준</p>
+    <h1>EV5가<br><span class="big">1,175<small>만 원</small></span><br>더 저렴합니다</h1>
+    <p class="lede">7월에 선계약한 기아 EV5와 테슬라 모델Y를 천안 보조금, 출고 시점, 2027년 제도 변화까지 넣어 비교했습니다.</p>
+  </div>
+  <div class="stage" aria-hidden="true">
+    <div class="in">
+      <div class="cars">
+        <svg viewBox="0 0 470 200"><g transform="translate(470 0) scale(-1 1)">
+          <ellipse cx="235" cy="190" rx="210" ry="8" fill="#0e1a2b" opacity="0.12"/>
+          <path d="M30 152 L28 120 Q30 104 50 100 L122 92 L166 50 Q170 46 178 46 L398 44 Q408 44 414 50 L430 66 L434 108 L438 152 L397 152 A43 43 0 0 0 311 152 L149 152 A43 43 0 0 0 63 152 Z" fill="#2a78d6"/>
+          <path d="M142 88 L176 55 L262 53 L262 88 Z" fill="#1d2733"/><path d="M272 53 L338 52 L338 88 L272 88 Z" fill="#1d2733"/><path d="M348 52 L398 51 L414 66 L416 88 L348 88 Z" fill="#1d2733"/>
+          <path d="M36 112 L58 108 L60 116 L38 120 Z" fill="#e8eef6"/><rect x="426" y="72" width="6" height="30" rx="2" fill="#d94a3a"/>
+          <path d="M60 128 L430 128" stroke="#1f5fae" stroke-width="3"/>
+          <circle cx="106" cy="152" r="34" fill="#22262c"/><circle cx="106" cy="152" r="19" fill="#c9ced6"/><circle cx="106" cy="152" r="6" fill="#22262c"/>
+          <circle cx="354" cy="152" r="34" fill="#22262c"/><circle cx="354" cy="152" r="19" fill="#c9ced6"/><circle cx="354" cy="152" r="6" fill="#22262c"/>
+        </g></svg>
+        <svg viewBox="0 0 470 200">
+          <ellipse cx="235" cy="190" rx="210" ry="8" fill="#0e1a2b" opacity="0.12"/>
+          <path d="M30 152 L28 124 Q30 110 52 106 L136 96 Q180 54 236 46 Q302 38 352 52 Q404 68 430 102 L438 152 L397 152 A43 43 0 0 0 311 152 L149 152 A43 43 0 0 0 63 152 Z" fill="#eb6834"/>
+          <path d="M156 92 Q194 60 238 54 Q262 51 282 51 L282 92 Z" fill="#1d2733"/><path d="M292 51 Q322 52 346 59 Q382 72 404 92 L292 92 Z" fill="#1d2733"/>
+          <path d="M36 116 L62 112 L62 118 L38 122 Z" fill="#e8eef6"/><path d="M420 98 L432 104 L432 110 L418 106 Z" fill="#9c2b1e"/>
+          <path d="M60 130 L432 130" stroke="#c9531f" stroke-width="3"/>
+          <circle cx="106" cy="152" r="34" fill="#22262c"/><circle cx="106" cy="152" r="19" fill="#c9ced6"/><circle cx="106" cy="152" r="6" fill="#22262c"/>
+          <circle cx="354" cy="152" r="34" fill="#22262c"/><circle cx="354" cy="152" r="19" fill="#c9ced6"/><circle cx="354" cy="152" r="6" fill="#22262c"/>
+        </svg>
+      </div>
+      <div class="vs">VS</div>
+    </div>
+    <div class="road"></div>
+    <div class="road-cap"><div class="in"><span>기아 EV5 · 2027년형</span><span>테슬라 모델Y · RWD</span></div></div>
   </div>
 </header>
 
-<nav class="toc" aria-label="바로가기">
-  <a href="#s-verdict">결론</a><a href="#s-contract">내 계약</a><a href="#s-chart">차트</a><a href="#s-dec">12월</a><a href="#s-27">2027년</a><a href="#s-price">가격 변동</a><a href="#s-tesla">테슬라 구매처</a><a href="#s-upd">정책 현황</a><a href="#s-policy">제도</a><a href="#s-risk">확인 사항</a>
-</nav>
+<main class="in">
 
-<section class="sec" aria-labelledby="s-verdict">
-  <div class="sec-head"><div class="eyebrow">결론</div><h2 id="s-verdict">어느 시나리오에서도 EV5 롱레인지가 더 저렴합니다</h2></div>
-  <div class="verdict">
-    <p class="verdict-lead">EV5 롱레인지 에어는 모델Y 프리미엄 RWD보다 실구매가가 <em class="num">396만~1,348만 원</em> 낮습니다. 두 차 모두 <b>2026년 7월에 선계약</b>한 상태입니다. EV5는 출고 대기 6~8개월 기준 <b>2027년 1~3월 출고</b>가 예상되어 2027년 기준(천안 약 3,478만~3,621만 원)이 적용될 가능성이 큽니다. 모델Y는 12월에 인도되면 2026년 천안 보조금(잔여 시 4,653만 원)을 받을 수 있습니다.</p>
-    <ul class="points">
-      <li><h3>국고 보조금 3.2배 차이</h3><p>EV5 롱레인지 552만 원, 모델Y RWD 170만 원. 모델Y RWD는 배터리·효율 평가에서 보조금이 적게 산정됩니다.</p></li>
-      <li><h3>천안 지방비가 서울의 3.5배</h3><p>천안 지방비는 국비의 약 104%(EV5 롱레인지 573만 원)로 서울(약 165만 원)보다 훨씬 많습니다. 다만 잔여 물량이 약 100대 수준이라 12월 소진 가능성이 큽니다.</p></li>
-      <li><h3>보조금은 계약일이 아닌 출고일 기준</h3><p>7월 선계약이어도 보조금·세금은 출고·등록 시점 기준입니다. EV5는 2027년 출고가 유력하고, 모델Y는 12월 인도 여부가 관건입니다.</p></li>
-      <li><h3>2027년 5,000만 원 기준선</h3><p>보조금 전액 기준이 5,300만→5,000만 원 미만으로 하향 예정. 모델Y RWD(4,999만 원)는 기준선에 걸려 있습니다.</p></li>
-    </ul>
+  <div class="duel">
+    <article class="car ev5">
+      <span class="maker">기아</span>
+      <h3>EV5 롱레인지 에어</h3>
+      <p class="trim">2027년형 · 7월 선계약</p>
+      <div class="price"><span class="n">3,478</span><span class="u">만 원</span></div>
+      <dl class="receipt">
+        <div><dt>차량가</dt><dd>4,603</dd></div>
+        <div class="minus"><dt>국비</dt><dd>−552</dd></div>
+        <div class="minus"><dt>천안 지방비</dt><dd>−573</dd></div>
+        <div class="sum"><dt>실구매가</dt><dd>3,478</dd></div>
+      </dl>
+      <ul class="facts">
+        <li><b>예상 출고</b>2027년 1~3월</li>
+        <li><b>적용 보조금</b>2027년 천안 기준</li>
+      </ul>
+    </article>
+    <article class="car my">
+      <span class="maker">테슬라</span>
+      <h3>모델Y 프리미엄 RWD</h3>
+      <p class="trim">현행 · 7월 선계약</p>
+      <div class="price"><span class="n">4,653</span><span class="u">만 원</span></div>
+      <dl class="receipt">
+        <div><dt>차량가</dt><dd>4,999</dd></div>
+        <div class="minus"><dt>국비</dt><dd>−170</dd></div>
+        <div class="minus"><dt>천안 지방비</dt><dd>−176</dd></div>
+        <div class="sum"><dt>실구매가</dt><dd>4,653</dd></div>
+      </dl>
+      <ul class="facts">
+        <li><b>예상 출고</b>2026년 12월 가능</li>
+        <li><b>적용 보조금</b>2026년 천안 잔여분</li>
+      </ul>
+    </article>
   </div>
-  <div class="gaps" role="list" aria-label="시나리오별 가격 차이 (모델Y − EV5)">
-    <div class="gap" role="listitem"><span class="k">12월 · 보조금 수령</span><span class="v num">1,175<small>만</small></span><span class="s">4,653 − 3,478</span></div>
-    <div class="gap" role="listitem"><span class="k">12월 · 보조금 소진</span><span class="v num">396<small>만</small></span><span class="s">11월 할인 조건 적용 시 718만</span></div>
-    <div class="gap" role="listitem"><span class="k">2027 · 인상분 반영</span><span class="v num">1,348<small>만</small></span><span class="s">4,969 − 3,621</span></div>
-    <div class="gap" role="listitem"><span class="k">2027 · 가격 유지</span><span class="v num">1,175<small>만</small></span><span class="s">4,653 − 3,478</span></div>
-  </div>
-</section>
 
-<section class="sec" aria-labelledby="s-contract">
-  <div class="sec-head"><div class="eyebrow">내 계약 현황</div><h2 id="s-contract">7월 선계약 기준으로 보면</h2><p>두 차 모두 2026년 7월에 계약했습니다. 보조금과 세금은 계약일이 아니라 출고·등록일 기준으로 정해집니다. 출고 예정일은 추정이며, 확정되면 갱신합니다.</p></div>
-  <div class="tbl-wrap">
-    <table class="status">
-      <thead><tr><th>항목</th><th>EV5 롱레인지 에어</th><th>모델Y 프리미엄 RWD</th></tr></thead>
-      <tbody>
-        <tr><td>계약</td><td>2026년 7월</td><td>2026년 7월</td></tr>
-        <tr><td>예상 출고</td><td>2027년 1~3월 <span class="sub">(대기 6~8개월 기준 추정)</span></td><td>배정에 따라 2026년 12월 가능 <span class="sub">(테슬라 앱에서 확인)</span></td></tr>
-        <tr><td>적용 차량가</td><td>통상 출고 시점 가격 → 2027년형 4,603만 원 <span class="sub">(개소세 감면 축소 시 최대 약 4,746만)</span></td><td>주문 시 가격 4,999만 원 <span class="sub">(계약서 확인)</span></td></tr>
-        <tr><td>적용 보조금</td><td>2027년 천안 기준 <span class="pill">공고 후 출고 필요</span></td><td>12월 출고 시 2026년 천안 잔여분, 1월 이후는 2027년 기준</td></tr>
-        <tr><td>예상 실구매가</td><td class="num hl">3,478만~3,621만</td><td class="num hl">4,653만 <span class="sub">(12월·잔여 시)</span> / 4,999만 <span class="sub">(소진 시)</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <ul class="notes">
-    <li><b>EV5가 2027년 1~2월에 출고되면</b> 천안시 2027년 보조금 공고(통상 연초) 전에 출고·등록할 경우 보조금을 받지 못할 수 있습니다. 대리점과 출고 시점을 공고 이후로 맞추세요.</li>
-    <li>기아는 통상 <b>출고 시점 가격</b>을 적용합니다. 2027년 개별소비세 감면 축소분(최대 약 143만 원)이 반영될 수 있으니 계약서의 가격 조항을 확인하세요.</li>
-    <li><b>모델Y는 12월 인도 여부가 핵심입니다.</b> 테슬라 앱에서 인도 예정일을 확인하고, 12월 인도가 가능하면 천안 잔여 물량(약 102대)이 소진되기 전에 보조금 신청이 진행되도록 해야 합니다.</li>
-    <li>최종적으로 한 대만 구입하실 경우, 다른 쪽 계약금의 <b>환불 조건과 해지 기한</b>을 미리 확인하세요.</li>
-  </ul>
-</section>
-
-<section class="sec" aria-labelledby="s-upd">
-  <div class="sec-head"><div class="eyebrow">정책 현황 · 2026년 11월 22일 확인</div><h2 id="s-upd">지금 확인된 정책 상태</h2><p>항목별 확정 여부를 표시했습니다. 국회 의결이나 보조금 지침이 발표되면 이 표와 아래 수치를 갱신합니다.</p></div>
-  <div class="tbl-wrap">
-    <table class="status">
-      <thead><tr><th>항목</th><th>현재 내용</th><th>상태</th><th>구매 판단에 주는 영향</th></tr></thead>
-      <tbody>
-        <tr><td>2027 보조금 예산</td><td>2조 1,403억 원, 43만 대 (승용 단가 300만 원 유지)</td><td><span class="pill">국회 심의 중</span></td><td>12월 국회 의결로 확정 예정</td></tr>
-        <tr><td>2027 차종별 국비·전액 기준</td><td>전액 지급 5,300만 → 5,000만 원 미만 예고</td><td><span class="pill none">지침 미발표</span></td><td>모델Y RWD(4,999만 원) 가격 유지 여부가 관건</td></tr>
-        <tr><td>개별소비세 감면</td><td>2026년 300만 원 → 2027년 200만 원 (정부안)</td><td><span class="pill">국회 계류</span></td><td>차값 최대 +143만 원</td></tr>
-        <tr><td>취득세 감면</td><td>2026년 140만 원 → 2027년 70만 원 (개정안)</td><td><span class="pill">국회 계류</span></td><td>2027년 등록 시 두 차 모두 최대 +70만 원</td></tr>
-        <tr><td>EV5 2027년형 가격</td><td>롱레인지 에어 4,603만 원, 스탠다드 에어 4,183만 원 (각 +28만 원)</td><td><span class="pill ok">판매 중</span></td><td>12월 계약분은 2027년형으로 출고</td></tr>
-        <tr><td>모델Y 국내 가격</td><td>RWD 4,999만 · 롱레인지 6,699만 · L 7,299만 원, 11월 변동 발표 없음</td><td><span class="pill ok">확인됨</span></td><td>RWD는 5,000만 원 기준선 바로 아래</td></tr>
-        <tr><td>미국 모델Y 2027년형</td><td>RWD $45,990 (+$1,000), 보급형 AWD 삭제</td><td><span class="pill none">국내 미발표</span></td><td>국내 반영 시 RWD 보조금 50%로 감액 위험</td></tr>
-        <tr><td>기아 EV5 할인</td><td>최대 7% (11월 K 세일페스타)</td><td><span class="pill">11월 한정</span></td><td>12월 조건은 미발표, 대리점 확인 필요</td></tr>
-        <tr><td>EV5 출고 기간</td><td>6~8개월 (11월 기준)</td><td><span class="pill ok">확인됨</span></td><td>12월 계약 시 2027년 출고·보조금 적용</td></tr>
-        <tr><td>테슬라 자체 보조금</td><td>최대 215만 원, 모델Y L 한 트림</td><td><span class="pill">11월 한정</span></td><td>RWD에는 해당 없음</td></tr>
-        <tr><td>천안시 보조금 잔여</td><td>약 102대 (민간 집계), 11월 추가 공고 미확인</td><td><span class="pill none">실시간 확인 필요</span></td><td>모델Y 재고차 연내 출고 시에만 의미 있음</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="s-chart">
-  <div class="sec-head"><div class="eyebrow">시나리오 비교</div><h2 id="s-chart">시나리오별 실구매가</h2><p>EV5 롱레인지 에어(2027년형) vs 모델Y 프리미엄 RWD, 천안 등록 기준. 기아 할인(최대 7%)은 제외한 값입니다.</p></div>
-  <div class="chart" id="chart">
-    <div class="legend" aria-hidden="true">
-      <span><i class="sw" style="background:var(--ev5)"></i>EV5 롱레인지 에어</span>
-      <span><i class="sw" style="background:var(--my)"></i>모델Y 프리미엄 RWD</span>
+  <section aria-labelledby="h-stats">
+    <div class="sec-title"><h2 id="h-stats">숫자로 보는 차이</h2><p>가격 차이를 만드는 네 가지 숫자입니다.</p></div>
+    <div class="stats">
+      <div class="stat"><span class="v num">3.2<small>배</small></span><span class="k">국고 보조금 차이</span><span class="d">EV5 552만 원, 모델Y 170만 원</span></div>
+      <div class="stat"><span class="v num">573<small>만</small></span><span class="k">EV5 천안 지방비</span><span class="d">국비의 약 104%, 서울의 3.5배</span></div>
+      <div class="stat"><span class="v num">4,999<small>만</small></span><span class="k">모델Y RWD 가격</span><span class="d">2027년 보조금 전액 기준 5,000만 원 바로 아래</span></div>
+      <div class="stat"><span class="v num">6~8<small>개월</small></span><span class="k">EV5 출고 대기</span><span class="d">7월 계약분은 2027년 출고가 유력</span></div>
     </div>
-    <div id="groups"></div>
-    <div class="axis" aria-hidden="true"><div></div><div class="axis-track" id="axis"></div></div>
-    <p class="chart-note">막대는 0부터 그린 실제 비율입니다. 막대에 마우스를 올리면 구성 내역이 보입니다. 상세 수치는 아래 표에 있습니다.</p>
-    <div class="tip" id="tip" hidden></div>
+  </section>
+
+  <section aria-labelledby="h-scn">
+    <div class="sec-title"><h2 id="h-scn">시나리오별 실구매가</h2><p>버튼을 누르면 상황별 금액이 바뀝니다.</p></div>
+    <div class="panel">
+      <div class="seg" role="group" aria-label="시나리오 선택" id="seg">
+        <button type="button" data-k="mine" aria-pressed="true">내 계약 기준</button>
+        <button type="button" data-k="decGet" aria-pressed="false">12월 · 보조금 받음</button>
+        <button type="button" data-k="decNone" aria-pressed="false">12월 · 보조금 소진</button>
+        <button type="button" data-k="up27" aria-pressed="false">2027 · 가격 인상</button>
+        <button type="button" data-k="keep27" aria-pressed="false">2027 · 가격 유지</button>
+      </div>
+      <div class="bars">
+        <div>
+          <div class="bar-lab"><span>EV5 롱레인지 에어</span><span class="num" id="v-ev5">3,478<small>만 원</small></span></div>
+          <div class="track"><div class="fill" id="f-ev5" style="width:66.9%;background:var(--ev5)"></div></div>
+          <div class="bar-det" id="d-ev5">4,603 − 국비 552 − 천안 573</div>
+        </div>
+        <div>
+          <div class="bar-lab"><span>모델Y 프리미엄 RWD</span><span class="num" id="v-my">4,653<small>만 원</small></span></div>
+          <div class="track"><div class="fill" id="f-my" style="width:89.5%;background:var(--my)"></div></div>
+          <div class="bar-det" id="d-my">4,999 − 국비 170 − 천안 176</div>
+        </div>
+      </div>
+      <div class="gapcall"><span>EV5가 더 저렴</span><span class="num" id="v-gap">1,175만 원</span></div>
+      <p class="scn-note" id="scn-note">EV5는 2027년 출고(가격 유지 시), 모델Y는 12월 인도로 2026년 천안 보조금을 받는 경우입니다.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-tl">
+    <div class="sec-title"><h2 id="h-tl">출고와 보조금 타임라인</h2><p>보조금과 세금은 계약일이 아니라 출고·등록일 기준입니다.</p></div>
+    <ol class="tl">
+      <li><i class="dot both"></i><time>2026.07</time><h3>두 차 모두 선계약</h3><p>계약 시점은 보조금 금액에 영향을 주지 않습니다.</p></li>
+      <li><i class="dot my"></i><time>2026.12</time><h3>모델Y 인도 가능 시점 <span class="chip my">모델Y</span></h3><p>12월 31일까지 출고·등록해야 2026년 천안 보조금 대상입니다. 천안 잔여 약 102대(민간 집계).</p></li>
+      <li><i class="dot both"></i><time>2027 연초</time><h3>천안시 2027년 보조금 공고 <span class="chip warn">예정</span></h3><p>개별소비세 감면 300만→200만 원, 취득세 감면 140만→70만 원 축소안이 국회에 계류 중입니다.</p></li>
+      <li><i class="dot ev5"></i><time>2027.01~03</time><h3>EV5 출고 예상 <span class="chip ev5">EV5</span></h3><p>보조금 공고 전에 등록하면 보조금을 못 받을 수 있어 공고 이후로 출고를 맞춰야 합니다.</p></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-chk">
+    <div class="sec-title"><h2 id="h-chk">지금 확인할 4가지</h2><p>확인한 항목은 체크해 두세요. 이 기기에만 저장됩니다.</p></div>
+    <ul class="checks">
+      <li><label><input type="checkbox" id="c1"><div><b>EV5 대리점에 출고 시점 요청</b><span>천안시 2027년 보조금 공고 이후 출고·등록되도록 조율</span></div></label></li>
+      <li><label><input type="checkbox" id="c2"><div><b>EV5 계약서 가격 조항 확인</b><span>출고 시점 가격 적용 시 개소세분 최대 약 143만 원 인상 가능</span></div></label></li>
+      <li><label><input type="checkbox" id="c3"><div><b>테슬라 앱에서 인도 예정일 확인</b><span>12월 인도면 천안 잔여 물량 소진 전에 보조금 신청 진행</span></div></label></li>
+      <li><label><input type="checkbox" id="c4"><div><b>한 대만 살 경우 계약금 조건 확인</b><span>다른 쪽 계약의 환불 조건과 해지 기한</span></div></label></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-shop">
+    <div class="sec-title"><h2 id="h-shop">테슬라는 어디서 살까</h2><p>보조금은 구매 매장과 관계없이 등록지인 천안 기준입니다.</p></div>
+    <div class="shops">
+      <div class="shop"><span class="km num">30<small>km</small></span><h3>스타필드 안성</h3><p>천안까지 차로 약 35분. 상담·시승·주문 가능, 천안 등록 일정 관리가 쉬움</p></div>
+      <div class="shop"><span class="km num">110<small>km</small></span><h3>인천</h3><p>천안까지 차로 약 1시간 30분. 인도 장소는 주문 시 선택, 탁송비 확인 필요</p></div>
+    </div>
+    <div class="note">
+      <span><b>재고 현황은 확인하지 못했습니다.</b> 테슬라 앱 또는 홈페이지의 재고 차량 메뉴에서 천안 주소를 넣으면 예상 인도 시점이 표시됩니다.</span>
+      <span>테슬라 자체 지원은 11월 기준 모델Y L만 대상(215만 원)입니다. 12월 조건은 매장에서 확인하세요.</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-more">
+    <div class="sec-title"><h2 id="h-more">더 자세히</h2><p>필요한 항목만 펼쳐 보세요.</p></div>
+
+    <details>
+      <summary>가격 변동 이력과 예정</summary>
+      <div class="dbody">
+        <div class="grp-h"><i class="sw" style="background:var(--ev5)"></i>EV5 롱레인지 에어</div>
+        <div class="rows">
+          <div><span class="when">2025.09</span><span class="what">출시 <b>4,855</b></span></div>
+          <div><span class="when">2026.01</span><span class="what">전 트림 280만 원 인하 <b>4,575</b></span></div>
+          <div><span class="when">2026 하반기</span><span class="what">2027년형 출시, 28만 원 인상 <b>4,603</b> <span class="chip ok">판매 중</span></span></div>
+          <div><span class="when">2026.11</span><span class="what">K 세일페스타 최대 7% 할인 <b>약 4,281</b> <span class="chip warn">11월 한정</span></span></div>
+          <div><span class="when">2027.01~</span><span class="what">개소세 감면 축소 시 <b>최대 약 4,746</b> <span class="chip warn">정부안</span></span></div>
+        </div>
+        <div class="grp-h"><i class="sw" style="background:var(--my)"></i>모델Y 프리미엄 RWD</div>
+        <div class="rows">
+          <div><span class="when">2026.01</span><span class="what">RWD 인하, 5,000만 원 기준 선제 대응 <b>4,999</b></span></div>
+          <div><span class="when">2026.04</span><span class="what">RWD 제외 인상 (L 6,499→6,999) <b>4,999</b></span></div>
+          <div><span class="when">2026.07</span><span class="what">RWD 동결, 롱레인지 6,699·L 7,299 <b>4,999</b></span></div>
+          <div><span class="when">2026.11</span><span class="what">미국 2027년형 $1,000 인상, 국내 반영 시 <b>약 5,140</b> <span class="chip none">국내 미발표</span></span></div>
+          <div><span class="when">2027.01~</span><span class="what">개소세 감면 축소 시 <b>최대 약 5,142</b> → 보조금 50% <span class="chip warn">정부안</span></span></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>정책 현황 (11월 22일 확인)</summary>
+      <div class="dbody">
+        <div class="rows">
+          <div><span class="when">예산</span><span class="what">2027년 2조 1,403억 원, 43만 대, 승용 단가 300만 원 유지 <span class="chip warn">국회 심의 중</span></span></div>
+          <div><span class="when">전액 기준</span><span class="what">5,300만 → 5,000만 원 미만, 차종별 국비 <span class="chip none">지침 미발표</span></span></div>
+          <div><span class="when">개소세</span><span class="what">감면 300만 → 200만 원, 차값 최대 +143만 <span class="chip warn">국회 계류</span></span></div>
+          <div><span class="when">취득세</span><span class="what">감면 140만 → 70만 원, 2027년 등록 시 최대 +70만 <span class="chip warn">국회 계류</span></span></div>
+          <div><span class="when">EV5 할인</span><span class="what">최대 7%, 12월 조건 미발표 <span class="chip warn">11월 한정</span></span></div>
+          <div><span class="when">천안 잔여</span><span class="what">약 102대(민간 집계), 11월 추가 공고 미확인 <span class="chip none">실시간 확인</span></span></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>상세 계산표</summary>
+      <div class="dbody">
+        <div class="calc">
+          <div><h4>2026년 12월 · EV5</h4>
+            <div class="r"><span>보조금 받을 때</span><span class="num">3,478</span></div>
+            <div class="r"><span>소진 시</span><span class="num">4,603</span></div>
+            <div class="r"><span>소진+11월 할인</span><span class="num">4,281</span></div></div>
+          <div><h4>2026년 12월 · 모델Y</h4>
+            <div class="r"><span>보조금 받을 때</span><span class="num">4,653</span></div>
+            <div class="r"><span>소진 시</span><span class="num">4,999</span></div>
+            <div class="r"><span>롱레인지 AWD</span><span class="num">6,271</span></div></div>
+          <div><h4>2027년 · EV5</h4>
+            <div class="r"><span>인상 반영</span><span class="num">3,621</span></div>
+            <div class="r"><span>가격 유지</span><span class="num">3,478</span></div>
+            <div class="r"><span>스탠다드 에어</span><span class="num">3,254</span></div></div>
+          <div><h4>2027년 · 모델Y</h4>
+            <div class="r"><span>인상 (보조금 50%)</span><span class="num">4,969</span></div>
+            <div class="r"><span>가격 유지</span><span class="num">4,653</span></div>
+            <div class="r"><span>모델Y L</span><span class="num">7,084</span></div></div>
+        </div>
+        <p style="color:var(--muted);font-size:13px">단위 만 원, 세제혜택 후 가격 기준. 천안 지방비는 국비의 약 104%. 취득세는 포함하지 않았습니다. 모델Y L은 테슬라 자체 지원 215만 원 적용.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>출처</summary>
+      <div class="dbody">
+        <ol class="src">
+          <li><a href="https://www.kia.com/content/dam/kwp/kr/ko/vehicles/pdf/price/price_ev5.pdf" target="_blank" rel="noopener">EV5 가격표 PDF — 기아</a></li>
+          <li><a href="https://web.getcha.kr/blog/lease-local-ev-subsidy-kia-ev5-17396" target="_blank" rel="noopener">EV5 지역별 보조금 금액표 — 겟차</a></li>
+          <li><a href="https://web.getcha.kr/blog/rent-local-ev-subsidy-tesla-model-y-17932" target="_blank" rel="noopener">모델Y RWD 지자체별 보조금 — 겟차</a></li>
+          <li><a href="https://web.getcha.kr/articles/auto-cashback-car-release-schedule" target="_blank" rel="noopener">2026년 11월 출고기간 정리 — 겟차</a></li>
+          <li><a href="https://www.autotribune.co.kr/news/articleView.html?idxno=44274" target="_blank" rel="noopener">가격 인상 모델 Y 실구매가 — 오토트리뷴</a></li>
+          <li><a href="https://www.bloter.net/news/articleView.html?idxno=667051" target="_blank" rel="noopener">테슬라 RWD 제외 가격 인상 — 블로터</a></li>
+          <li><a href="https://www.g-enews.com/article/Global-Biz/2026/11/2026111100110963429a1f309431_1" target="_blank" rel="noopener">모델Y 2027년형 — 글로벌이코노믹</a></li>
+          <li><a href="https://www.viva100.com/article/20260901501561" target="_blank" rel="noopener">2027 예산 전기차 보조금 43만 대 — 브릿지경제</a></li>
+          <li><a href="https://www.yuccapostkorea.com/news/articleView.html?idxno=2696" target="_blank" rel="noopener">2027 보조금 기준 강화 — 유카포스트</a></li>
+          <li><a href="https://www.energydaily.co.kr/news/articleView.html?idxno=201254" target="_blank" rel="noopener">친환경차 개소세 감면 연장 — 에너지데일리</a></li>
+          <li><a href="https://www.easyzetec.com/blog/ev-acquisition-tax-reduction-2027-cap-amendment-status" target="_blank" rel="noopener">전기차 취득세 감면 2027 개정안 — easyzetec</a></li>
+          <li><a href="https://www.motorgraph.com/news/articleView.html?idxno=44848" target="_blank" rel="noopener">기아 2026 K 세일페스타 — 모터그래프</a></li>
+          <li><a href="https://www.etnews.com/20261106000223" target="_blank" rel="noopener">11월 테슬라 자체 보조금 — 전자신문</a></li>
+          <li><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=712158" target="_blank" rel="noopener">사이버캡 스타필드 안성 전시 — 디지털투데이</a></li>
+          <li><a href="https://www.vw-k.com/vehicle-subsidy/4413" target="_blank" rel="noopener">2026 천안시 전기차 보조금 — vw-k</a></li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  <div class="in">
+    <span>2026년 11월 22일 기준 · 매일 오전 자동으로 정책과 가격을 확인해 갱신합니다.</span>
+    <span>언론·공식 가격표 자료를 종합한 추정치입니다. 계약 전 기아·테슬라 공식 채널과 무공해차 통합누리집(ev.or.kr)에서 다시 확인하세요.</span>
+    <span>차량 그림은 이해를 돕기 위한 일러스트입니다.</span>
   </div>
-</section>
-
-<section class="sec" aria-labelledby="s-dec">
-  <div class="sec-head"><div class="eyebrow">① 2026년 12월</div><h2 id="s-dec">2026년 12월 구매 시 실구매가</h2><p>국고 보조금은 12월 31일까지 출고·등록된 차량에만 적용됩니다.</p></div>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>트림</th><th>차량가</th><th>국비</th><th>지방비(천안)</th><th>보조금 수령 시</th><th>보조금 소진 시</th></tr></thead>
-      <tbody>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--ev5)"></i>EV5 스탠다드 에어 <span class="sub">27년형</span></span></td><td class="num">4,183</td><td class="num">456</td><td class="num">약 473</td><td class="num">약 3,254</td><td class="num">4,183 <span class="sub">(11월 할인 시 약 3,890)</span></td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--ev5)"></i>EV5 롱레인지 에어 <span class="sub">27년형</span></span></td><td class="num">4,603</td><td class="num">552</td><td class="num">573</td><td class="num hl">3,478 <span class="sub">(11월 할인 시 약 3,156)</span></td><td class="num hl">4,603 <span class="sub">(11월 할인 시 약 4,281)</span></td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--my)"></i>모델Y 프리미엄 RWD</span></td><td class="num">4,999</td><td class="num">170</td><td class="num">176</td><td class="num hl">4,653</td><td class="num hl">4,999</td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--my)"></i>모델Y 롱레인지 AWD</span></td><td class="num">6,699</td><td class="num">210 <span class="sub">(50% 구간)</span></td><td class="num">약 218</td><td class="num">약 6,271</td><td class="num">6,699</td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--my)"></i>모델Y L AWD (6인승)</span></td><td class="num">7,299</td><td class="num">215</td><td class="num">—</td><td class="num">—</td><td class="num">7,084 <span class="sub">(테슬라 자체 지원)</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <ul class="notes">
-    <li>기아 할인 <b>최대 7%</b>(롱레인지 약 322만 원)는 11월 K 세일페스타 조건입니다. 12월 조건은 아직 발표되지 않았습니다.</li>
-    <li>EV5는 현재 판매 중인 <b>2027년형</b> 가격입니다(2026년형 대비 28만 원 인상). 2026년형 재고가 있으면 롱레인지 에어 4,575만 원입니다.</li>
-    <li><b>EV5는 출고 대기가 6~8개월</b>(11월 기준)이라 이 표의 12월 EV5 가격은 재고·전시차 등 연내 출고가 가능한 경우에만 해당합니다.</li>
-    <li>테슬라 11월 자체 보조금(최대 215만 원)은 <b>모델Y L 한 트림만</b> 대상이며, 공지 없이 변경될 수 있습니다.</li>
-    <li>천안 지방비(도비+시비)는 지자체별 보조금표 기준 EV5 롱레인지 에어 572.9만 원, 모델Y RWD 176.4만 원으로 <b>국비의 약 104%</b>입니다. 나머지 트림은 같은 비율로 추정했습니다.</li>
-    <li><b>출고지(인천)는 보조금과 무관합니다.</b> 보조금은 등록지인 천안시 기준으로 지급되며, 신청일 기준 천안 거주 요건(통상 연속 거주 기간 조건)을 충족해야 합니다. 인천에서 천안까지는 약 100km로, 탁송 또는 직접 운행 후 천안에서 등록합니다.</li>
-  </ul>
-</section>
-
-<section class="sec" aria-labelledby="s-27">
-  <div class="sec-head"><div class="eyebrow">② 2027년 (추정)</div><h2 id="s-27">2027년 구매 시 예상 실구매가</h2><p>전제: 승용 보조금 단가 300만 원 유지, 차종별 국비는 2026년 수준, 개별소비세 감면 축소로 차값 최대 +143만 원, 전액 지급 기준 5,000만 원 미만, 천안 지방비는 국비의 약 104% 유지.</p></div>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>트림</th><th>시나리오</th><th>차량가</th><th>보조금(국비+천안)</th><th>실구매가</th></tr></thead>
-      <tbody>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--ev5)"></i>EV5 롱레인지 에어</span></td><td style="text-align:left">기아가 인상분 반영</td><td class="num">약 4,746</td><td class="num">1,125 <span class="sub">(전액)</span></td><td class="num hl">약 3,621</td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--ev5)"></i>EV5 롱레인지 에어</span></td><td style="text-align:left">기아가 인상분 흡수</td><td class="num">4,603</td><td class="num">1,125 <span class="sub">(전액)</span></td><td class="num hl">약 3,478</td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--my)"></i>모델Y 프리미엄 RWD</span></td><td style="text-align:left">테슬라가 약 143만 원 인상 <span class="sub">(개소세분 또는 미국 27년형 인상 반영)</span></td><td class="num">약 5,142</td><td class="num">약 173 <span class="pill">50% 감액</span></td><td class="num hl">약 4,969</td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--my)"></i>모델Y 프리미엄 RWD</span></td><td style="text-align:left">테슬라가 4,999만 원 유지</td><td class="num">4,999</td><td class="num">346 <span class="sub">(전액)</span></td><td class="num hl">약 4,653</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <ul class="notes">
-    <li>테슬라는 2026년 7월 가격 인상 때도 RWD를 4,999만 원으로 묶어 보조금 기준선에 맞췄습니다. <b>2027년에도 가격을 유지할 가능성이 높다고 판단됩니다.</b></li>
-    <li>개소세 감면 100만 원 축소 시 소비자가 영향: 개소세 100 + 교육세 30 + 부가세 13 = 약 143만 원.</li>
-    <li>취득세 감면 한도가 140만 → 70만 원으로 줄면(개정안 계류) 2027년 등록 시 두 차 모두 최대 70만 원이 추가됩니다. 위 실구매가에는 취득세가 포함되지 않았습니다.</li>
-  </ul>
-</section>
-
-<section class="sec" aria-labelledby="s-price">
-  <div class="sec-head"><div class="eyebrow">가격 변동</div><h2 id="s-price">차량 가격 변동 이력과 예정</h2><p>세제혜택 후 가격, 단위 만 원. 2027년 1월 이후 항목은 정부안·해외 동향 기준 예정 사항입니다.</p></div>
-  <div class="tbl-wrap">
-    <table class="status">
-      <thead><tr><th>시점</th><th>변동 내용</th><th>상태</th><th>가격</th></tr></thead>
-      <tbody>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--ev5)"></i>EV5</span></td><td colspan="3" class="sub">롱레인지 에어 기준</td></tr>
-        <tr><td>2025년 9월</td><td>출시</td><td><span class="pill ok">확정</span></td><td class="num">4,855</td></tr>
-        <tr><td>2026년 1월</td><td>전 트림 280만 원 인하</td><td><span class="pill ok">확정</span></td><td class="num">4,575</td></tr>
-        <tr><td>2026년 하반기</td><td>2027년형 출시, 28만 원 인상 (스탠다드 에어 4,183)</td><td><span class="pill ok">판매 중</span></td><td class="num">4,603</td></tr>
-        <tr><td>2026년 11월</td><td>K 세일페스타 최대 7% 할인</td><td><span class="pill">11월 한정</span></td><td class="num">약 4,281</td></tr>
-        <tr><td>2027년 1월~</td><td>개별소비세 감면 축소 시 소비자가 상승</td><td><span class="pill">정부안</span></td><td class="num">최대 약 4,746</td></tr>
-        <tr><td><span class="carname"><i class="sw" style="background:var(--my)"></i>모델Y</span></td><td colspan="3" class="sub">프리미엄 RWD 기준 (괄호는 다른 트림)</td></tr>
-        <tr><td>2026년 1월</td><td>RWD 인하, 보조금 5,000만 원 기준 선제 대응 (롱레인지 5,999)</td><td><span class="pill ok">확정</span></td><td class="num">4,999</td></tr>
-        <tr><td>2026년 4월</td><td>RWD 제외 인상 (L 6,499 → 6,999)</td><td><span class="pill ok">확정</span></td><td class="num">4,999</td></tr>
-        <tr><td>2026년 7월</td><td>RWD 동결, 나머지 300만~700만 원 인상 (롱레인지 6,699, L 7,299)</td><td><span class="pill ok">확정</span></td><td class="num">4,999</td></tr>
-        <tr><td>2026년 11월</td><td>미국 2027년형 $1,000 인상, 보급형 AWD 삭제. 국내 가격 발표 없음</td><td><span class="pill none">국내 미발표</span></td><td class="num">반영 시 약 5,140</td></tr>
-        <tr><td>2027년 1월~</td><td>개별소비세 감면 축소 시 소비자가 상승</td><td><span class="pill">정부안</span></td><td class="num">최대 약 5,142</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <ul class="notes">
-    <li>모델Y RWD는 인상되면 5,000만 원을 넘어 2027년 보조금이 50%로 줄어듭니다. 테슬라는 2026년 두 차례 가격 조정에서 RWD만 4,999만 원으로 유지했습니다.</li>
-    <li>EV5 2027년형 가격은 기아 공식 가격표(PDF) 검색 결과 기준입니다. 공식 홈페이지는 이 환경에서 직접 열람하지 못했습니다.</li>
-  </ul>
-</section>
-
-<section class="sec" aria-labelledby="s-tesla">
-  <div class="sec-head"><div class="eyebrow">테슬라 구매처</div><h2 id="s-tesla">인천 · 스타필드 안성 구매와 재고</h2><p>보조금은 구매 매장이나 출고 장소와 관계없이 등록지인 천안시 기준으로 지급됩니다.</p></div>
-  <div class="tbl-wrap">
-    <table class="status">
-      <thead><tr><th>구매처</th><th>천안까지</th><th>확인된 내용</th><th>비고</th></tr></thead>
-      <tbody>
-        <tr><td>스타필드 안성 테슬라 스토어</td><td>약 30km, 차로 약 35분</td><td>상담·시승·주문 가능. 11월 사이버캡 국내 첫 전시 장소</td><td>천안 등록 일정 관리가 쉬움</td></tr>
-        <tr><td>인천</td><td>약 100~120km, 차로 약 1시간 30분</td><td>인도 장소는 주문 시 선택</td><td>탁송비·이동 시간 확인 필요</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <ul class="notes">
-    <li><b>재고 현황은 확인하지 못했습니다.</b> 테슬라 공식 재고 페이지가 이 환경에서 접속되지 않습니다. 테슬라 홈페이지의 <b>재고 차량 → 모델Y</b>에서 천안 주소를 넣으면 예상 인도 시점이 표시되며, 스타필드 안성 매장에서도 확인할 수 있습니다.</li>
-    <li>재고차는 통상 1~2주 안에 인도된다고 알려져 있습니다(블로그 자료). 신규 주문은 출처에 따라 수주~수개월로 엇갈립니다.</li>
-    <li>2026년 천안 보조금을 받으려면 <b>재고차로 12월 중 인도·천안 등록</b>까지 마쳐야 합니다. 보조금은 출고·등록 순으로 지급됩니다.</li>
-    <li>테슬라 자체 지원은 5월에는 보조금 종료 지역 RWD 구매자에게 170만 원이었으나, 11월에는 모델Y L만 대상(215만 원)입니다. 12월 조건은 매장에서 확인해야 합니다.</li>
-  </ul>
-</section>
-
-<section class="sec" aria-labelledby="s-policy">
-  <div class="sec-head"><div class="eyebrow">제도 변화</div><h2 id="s-policy">2026년 → 2027년 보조금 제도 비교</h2><p>2026년 9월 정부 예산안 기준이며, 12월 국회 의결 후 확정됩니다.</p></div>
-  <div class="tbl-wrap">
-    <table class="policy">
-      <thead><tr><th>항목</th><th>2026년</th><th>2027년 (안)</th><th>영향</th></tr></thead>
-      <tbody>
-        <tr><td>무공해차 보급 예산</td><td>1조 6,114억 원</td><td>2조 1,403억 원</td><td style="text-align:left">+32.8%, 연초 보조금 여유 확대</td></tr>
-        <tr><td>지원 물량</td><td>30만 대</td><td>43만 대</td><td style="text-align:left">+43%</td></tr>
-        <tr><td>승용 보조금 단가</td><td>300만 원</td><td>300만 원</td><td style="text-align:left">동결</td></tr>
-        <tr><td>보조금 전액 지급 기준</td><td>5,300만 원 미만</td><td>5,000만 원 미만</td><td style="text-align:left">모델Y RWD 기준선 근접</td></tr>
-        <tr><td>50% 지급 구간 상한</td><td>8,500만 원</td><td>8,000만 원 <span class="pill">일부 보도</span></td><td style="text-align:left">고가 트림 영향</td></tr>
-        <tr><td>개별소비세 감면 한도</td><td>300만 원</td><td>200만 원</td><td style="text-align:left">차값 최대 +143만 원</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="s-risk">
-  <div class="sec-head"><div class="eyebrow">확인 필요</div><h2 id="s-risk">의사결정 전 확인할 사항</h2></div>
-  <div class="risks">
-    <div class="risk"><h3>2027년 차종별 국비 미확정</h3><p>국비 금액, 전환지원금 단가, 지역별 지방비는 12월 이후 발표될 2027년 보조금 지침에서 정해집니다.</p></div>
-    <div class="risk"><h3>12월 출고·등록 일정</h3><p>2026년 보조금은 연내 출고·등록 차량만 해당합니다. EV5는 출고 6~8개월이라 사실상 2027년 기준이고, 모델Y는 재고차여야 연내 인천 출고·천안 등록이 가능합니다.</p></div>
-    <div class="risk"><h3>천안시 잔여 물량</h3><p>민간 집계 기준 천안 잔여 약 102대(소진율 88.7%, 집계 시점 불명확). 보조금은 출고·등록 순 선착순이므로 무공해차 통합누리집(ev.or.kr) 구매보조금 지급현황에서 충청남도 → 천안시로 실시간 확인해야 합니다.</p></div>
-    <div class="risk"><h3>2차 자료 기반 수치</h3><p>차량가·보조금은 언론·블로그 자료를 종합했습니다. 계약 전 기아·테슬라 공식 가격표로 재확인이 필요합니다.</p></div>
-  </div>
-</section>
-
-<section class="sec" aria-labelledby="s-src">
-  <div class="sec-head"><div class="eyebrow">출처</div><h2 id="s-src">참고 자료</h2></div>
-  <ol class="sources">
-    <li><a href="https://chazm.co.kr/hub/ev5-guide" target="_blank" rel="noopener">기아 EV5 가격·보조금 총정리 — 차즘</a></li>
-    <li><a href="https://gorbi.co.kr/ev5" target="_blank" rel="noopener">기아 EV5 실구매가 트림·지역별 비교 — gorbi</a></li>
-    <li><a href="https://web.getcha.kr/blog/rent-local-ev-subsidy-kia-ev5-17174" target="_blank" rel="noopener">EV5 롱레인지 에어 지자체별 보조금 — 겟차</a></li>
-    <li><a href="https://moneytipbox.blogspot.com/2026/10/ev5-2026-10.html" target="_blank" rel="noopener">EV5 트림별 가격·보조금 (2026년 10월)</a></li>
-    <li><a href="https://www.top-rider.com/article/view/trd202509010010" target="_blank" rel="noopener">EV5 롱레인지 가격 공개 — 탑라이더</a></li>
-    <li><a href="https://www.autotribune.co.kr/news/articleView.html?idxno=44274" target="_blank" rel="noopener">가격 인상 모델 Y 실구매가 — 오토트리뷴</a></li>
-    <li><a href="https://web.getcha.kr/blog/tesla-price-comparison-2026-model3-modely-trim-guide" target="_blank" rel="noopener">테슬라 7월 가격 인상 2026 — 겟차</a></li>
-    <li><a href="https://web.getcha.kr/blog/tesla-model-y-2026-subsidy-guide-complete/" target="_blank" rel="noopener">모델Y 2026 보조금 정리 — 겟차</a></li>
-    <li><a href="https://www.etnews.com/20261106000223" target="_blank" rel="noopener">11월 테슬라 자체 보조금 — 전자신문</a></li>
-    <li><a href="https://www.make2t.kr/2026/10/tesla-model-y-price-subsidy-real-cost.html" target="_blank" rel="noopener">2026 모델Y 가격·보조금 — make2t</a></li>
-    <li><a href="https://www.viva100.com/article/20260901501561" target="_blank" rel="noopener">2027 예산 전기차 보조금 43만 대 — 브릿지경제</a></li>
-    <li><a href="https://www.yuccapostkorea.com/news/articleView.html?idxno=2696" target="_blank" rel="noopener">2027 보조금 기준 강화 — 유카포스트</a></li>
-    <li><a href="https://ev-vs.com/blog/2027-ev-subsidy-price-threshold-2026-06-27" target="_blank" rel="noopener">2027 보조금 5천만 원 기준 — ev-vs</a></li>
-    <li><a href="https://www.ajunews.com/view/20261109143335638" target="_blank" rel="noopener">서울 전기차 보조금 135대 남아 — 아주경제</a></li>
-    <li><a href="https://www.autotribune.co.kr/news/articleView.html?idxno=47360" target="_blank" rel="noopener">연말 출고 전 보조금 변수 — 오토트리뷴</a></li>
-    <li><a href="https://www.kia.com/content/dam/kwp/kr/ko/vehicles/pdf/price/price_ev5.pdf" target="_blank" rel="noopener">EV5 가격표 PDF — 기아</a></li>
-    <li><a href="https://www.hyundaimotorgroup.com/ko/news/kia-ev3-ev4-ev5-gt-ev9-model-year-update-launch" target="_blank" rel="noopener">기아 EV5 GT·연식변경 출시 — 현대자동차그룹</a></li>
-    <li><a href="https://web.getcha.kr/blog/new-model-year-kia-ev5-gt-3416" target="_blank" rel="noopener">EV5 GT 2027년형 가격 — 겟차</a></li>
-    <li><a href="https://www.bloter.net/news/articleView.html?idxno=667051" target="_blank" rel="noopener">테슬라 RWD 제외 가격 인상 — 블로터</a></li>
-    <li><a href="https://www.g-enews.com/article/Global-Biz/2026/11/2026111100110963429a1f309431_1" target="_blank" rel="noopener">모델Y 2027년형 — 글로벌이코노믹</a></li>
-    <li><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=715568" target="_blank" rel="noopener">미국 보급형 모델Y 트림 삭제 — 디지털투데이</a></li>
-    <li><a href="https://auto.danawa.com/news/?Work=detail&amp;no=6011393&amp;NewsGroup=M" target="_blank" rel="noopener">모델Y 미국 가격 인상, 국내 촉각 — 다나와</a></li>
-    <li><a href="https://news.nate.com/view/20260502n05570" target="_blank" rel="noopener">테슬라 170만 원 자체 지원 — 네이트 뉴스</a></li>
-    <li><a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=712158" target="_blank" rel="noopener">사이버캡 스타필드 안성 전시 — 디지털투데이</a></li>
-    <li><a href="https://www.motorgraph.com/news/articleView.html?idxno=44848" target="_blank" rel="noopener">기아 2026 K 세일페스타 — 모터그래프</a></li>
-    <li><a href="https://web.getcha.kr/articles/auto-cashback-car-release-schedule" target="_blank" rel="noopener">2026년 11월 출고기간 정리 — 겟차</a></li>
-    <li><a href="https://web.getcha.kr/blog/tesla-model-y-inventory-immediate-delivery-guide-2026" target="_blank" rel="noopener">모델Y 재고 차량 즉시 출고 — 겟차</a></li>
-    <li><a href="https://daily.hankooki.com/news/articleView.html?idxno=1403116" target="_blank" rel="noopener">내년 전기차 보조금 2.1조원 — 데일리한국</a></li>
-    <li><a href="https://www.energydaily.co.kr/news/articleView.html?idxno=201254" target="_blank" rel="noopener">친환경차 개소세 감면 연장 — 에너지데일리</a></li>
-    <li><a href="https://www.easyzetec.com/blog/ev-acquisition-tax-reduction-2027-cap-amendment-status" target="_blank" rel="noopener">전기차 취득세 감면 2027 개정안 — easyzetec</a></li>
-    <li><a href="https://www.sisajournal.com/news/articleView.html?idxno=376750" target="_blank" rel="noopener">천안시 전기차 보조금 추가 지원 — 시사저널</a></li>
-    <li><a href="https://web.getcha.kr/blog/lease-local-ev-subsidy-kia-ev5-17396" target="_blank" rel="noopener">EV5 지역별 보조금 금액표 — 겟차</a></li>
-    <li><a href="https://web.getcha.kr/blog/rent-local-ev-subsidy-tesla-model-y-17932" target="_blank" rel="noopener">모델Y RWD 지자체별 보조금 — 겟차</a></li>
-    <li><a href="https://www.vw-k.com/vehicle-subsidy/4413" target="_blank" rel="noopener">2026 천안시 전기차 보조금 — vw-k</a></li>
-    <li><a href="https://icems2021.com/2026/05/29/%EC%B2%9C%EC%95%88-%EC%A0%84%EA%B8%B0%EC%B0%A8-%EB%B3%B4%EC%A1%B0%EA%B8%88-%EC%9E%94%EC%97%AC-%EB%AC%BC%EB%9F%89-%EC%A1%B0%ED%9A%8C-%EC%83%81%EB%B0%98%EA%B8%B0-%ED%95%98%EB%B0%98%EA%B8%B0-%EC%B4%9D/" target="_blank" rel="noopener">천안 보조금 잔여 물량 조회 방법 — 지식채널</a></li>
-  </ol>
-</section>
-
-</div>
+</footer>
 
 <script>
 (function () {
-  var MAX = 5500;
-  var data = [
-    { g: "2026년 12월", s: "보조금 수령", ev5: [3478, "차량가 4,603(27년형) − 국비 552 − 천안 지방비 573"], my: [4653, "차량가 4,999 − 국비 170 − 천안 지방비 176"] },
-    { g: "2026년 12월", s: "보조금 소진", ev5: [4603, "보조금 없음 · 11월 할인 조건 적용 시 4,281"], my: [4999, "보조금 없음"] },
-    { g: "2027년 (추정)", s: "인상분 반영", ev5: [3621, "차량가 4,746 − 보조금 1,125 (전액)"], my: [4969, "차량가 5,142 − 보조금 173 (50% 감액)"] },
-    { g: "2027년 (추정)", s: "가격 유지", ev5: [3478, "차량가 4,603 − 보조금 1,125 (전액)"], my: [4653, "차량가 4,999 − 보조금 346 (전액)"] }
-  ];
+  var MAX = 5200;
+  var S = {
+    mine:   { ev5: [3478, "4,603 − 국비 552 − 천안 573"], my: [4653, "4,999 − 국비 170 − 천안 176"], note: "EV5는 2027년 출고(가격 유지 시), 모델Y는 12월 인도로 2026년 천안 보조금을 받는 경우입니다." },
+    decGet: { ev5: [3478, "4,603 − 국비 552 − 천안 573"], my: [4653, "4,999 − 국비 170 − 천안 176"], note: "두 차 모두 12월에 출고되어 2026년 천안 보조금을 받는 경우입니다. EV5는 출고 대기 때문에 가능성이 낮습니다." },
+    decNone:{ ev5: [4603, "보조금 없음 · 11월 할인 조건이면 4,281"], my: [4999, "보조금 없음"], note: "천안 보조금이 소진된 경우입니다. 기아 7% 할인은 11월 조건이라 12월에는 달라질 수 있습니다." },
+    up27:   { ev5: [3621, "4,746 − 보조금 1,125"], my: [4969, "5,142 − 보조금 173 (50%)"], note: "개소세 감면 축소분을 두 회사가 가격에 반영하는 경우입니다. 모델Y는 5,000만 원을 넘어 보조금이 절반으로 줄어듭니다." },
+    keep27: { ev5: [3478, "4,603 − 보조금 1,125"], my: [4653, "4,999 − 보조금 346"], note: "2027년에 두 회사가 현재 가격을 유지하는 경우입니다." }
+  };
   var fmt = function (n) { return n.toLocaleString("ko-KR"); };
-  var host = document.getElementById("groups");
-  var tip = document.getElementById("tip");
-  var chart = document.getElementById("chart");
-  data.forEach(function (d) {
-    var g = document.createElement("div");
-    g.className = "group";
-    g.innerHTML = '<div class="g-label">' + d.g + '<small>' + d.s + '</small></div><div class="bars"></div>';
-    var bars = g.querySelector(".bars");
-    [["ev5", "EV5 롱레인지 에어"], ["my", "모델Y 프리미엄 RWD"]].forEach(function (k) {
-      var v = d[k[0]][0], detail = d[k[0]][1];
-      var row = document.createElement("div");
-      row.className = "bar-row";
-      row.tabIndex = 0;
-      row.setAttribute("aria-label", d.g + " " + d.s + ", " + k[1] + " " + fmt(v) + "만 원. " + detail);
-      row.innerHTML = '<div class="bar" style="width:calc((100% - 56px) * ' + (v / MAX) + ');background:var(--' + k[0] + ')"></div><span class="bar-val">' + fmt(v) + '</span>';
-      var show = function () {
-        tip.textContent = k[1] + " · " + fmt(v) + "만 원 — " + detail;
-        tip.hidden = false;
-        var cr = chart.getBoundingClientRect(), rr = row.getBoundingClientRect();
-        var left = Math.max(8, Math.min(rr.left - cr.left, cr.width - tip.offsetWidth - 8));
-        tip.style.left = left + "px";
-        tip.style.top = (rr.top - cr.top - tip.offsetHeight - 6) + "px";
-      };
-      row.addEventListener("mouseenter", show);
-      row.addEventListener("focus", show);
-      row.addEventListener("mouseleave", function () { tip.hidden = true; });
-      row.addEventListener("blur", function () { tip.hidden = true; });
-      bars.appendChild(row);
-    });
-    host.appendChild(g);
-  });
-  document.querySelectorAll("table").forEach(function (t) {
-    var heads = Array.prototype.map.call(t.querySelectorAll("thead th"), function (th) { return th.textContent.trim(); });
-    t.querySelectorAll("tbody tr").forEach(function (tr) {
-      var cells = tr.children;
-      if (cells.length !== heads.length) { tr.classList.add("grp"); return; }
-      Array.prototype.forEach.call(cells, function (td, i) { td.setAttribute("data-label", heads[i]); });
+  var $ = function (id) { return document.getElementById(id); };
+  function show(k) {
+    var d = S[k];
+    $("v-ev5").innerHTML = fmt(d.ev5[0]) + "<small>만 원</small>";
+    $("v-my").innerHTML = fmt(d.my[0]) + "<small>만 원</small>";
+    $("f-ev5").style.width = (d.ev5[0] / MAX * 100) + "%";
+    $("f-my").style.width = (d.my[0] / MAX * 100) + "%";
+    $("d-ev5").textContent = d.ev5[1];
+    $("d-my").textContent = d.my[1];
+    $("v-gap").textContent = fmt(d.my[0] - d.ev5[0]) + "만 원";
+    $("scn-note").textContent = d.note;
+  }
+  document.querySelectorAll("#seg button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#seg button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      show(b.getAttribute("data-k"));
     });
   });
-  var axis = document.getElementById("axis");
-  [0, 1000, 2000, 3000, 4000, 5000].forEach(function (t) {
-    var s = document.createElement("span");
-    s.textContent = fmt(t);
-    s.style.left = "calc((100% - 56px) * " + (t / MAX) + ")";
-    axis.appendChild(s);
+  document.querySelectorAll(".checks input").forEach(function (c) {
+    var key = "ev5my-" + c.id;
+    try { c.checked = localStorage.getItem(key) === "1"; } catch (e) {}
+    c.addEventListener("change", function () { try { localStorage.setItem(key, c.checked ? "1" : "0"); } catch (e) {} });
   });
 })();
 </script>
