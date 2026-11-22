@@ -13,7 +13,7 @@ URL=https://ev5-modely.netlify.app/ev5-vs-modely/
   printf '<meta property="og:title" content="EV5 vs 모델Y 실구매가 비교">\n'
   printf '<meta property="og:description" content="%s">\n' "$DESC"
   printf '<meta property="og:url" content="%s">\n' "$URL"
-  printf '<meta property="og:image" content="%sog.png">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n' "$URL"
+  printf '<meta property="og:image" content="%sog.png?v=2">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n' "$URL"
   printf '<meta name="twitter:card" content="summary_large_image">\n'
   sed -n '/<title>/,/<\/style>/p' "$SRC"
   printf '</head>\n<body>\n'
