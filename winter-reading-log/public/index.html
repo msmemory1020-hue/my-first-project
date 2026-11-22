@@ -4,119 +4,134 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>겨울방학 독서 기록장</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
-/* Layout: one narrow column like a reading notebook — summary on top, tabs, then books grouped by level/subject, each with a 4-step status switch */
+/* 송담초 디자인 시스템 적용: 남색 헤더 띠 + 흰 배경, 1px 헤어라인 카드(그림자 없음), Pretendard, 상태는 카테고리 색으로 구분 */
 :root {
-  --bg: #f3f6f4;
-  --paper: #ffffff;
-  --ink: #1d2a26;
-  --muted: #5d6d67;
-  --line: #d8e1dd;
-  --board: #24594b;      /* chalkboard green accent */
-  --board-soft: #e2eee9;
-  --none: #8a9893;
-  --bought: #b7791f;
-  --bought-soft: #fbf0dc;
-  --have: #2f6db3;
-  --have-soft: #e1ecf8;
-  --read: #2e8b57;
-  --read-soft: #def3e6;
-  --new: #c2416b;
-  --f-display: "Jua", "Noto Sans KR", system-ui, sans-serif;
-  --f-body: "Noto Sans KR", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color-scheme: light;
+  /* 원시 팔레트 (송담초 tokens/colors.css) */
+  --navy-900:#12203f; --navy-800:#16294f; --navy-700:#1b3a6b; --navy-300:#7a93bc; --navy-200:#c3d0e4; --navy-100:#e7ecf5; --navy-50:#f4f7fc;
+  --orange-700:#a83a09; --orange-500:#de5412; --orange-100:#fbe7dc; --orange-50:#fdf4ef;
+  --green-700:#3f6b1f; --green-600:#558a2c; --green-100:#e9f2df; --green-50:#f4f8ef;
+  --sky-600:#2c5c8c; --sky-500:#3c72a8; --sky-100:#e4edf6; --sky-50:#f2f7fb;
+  --ink-900:#1f2229; --ink-700:#3f4450; --ink-500:#6a7080; --ink-400:#949aa8;
+  --line-400:#c3c9d4; --line-300:#dde1e8; --line-200:#ebeef3;
+  --white:#ffffff; --gray-50:#f7f8fa; --gray-100:#f1f3f7;
+  /* 의미 별칭 */
+  --text-title:var(--ink-900); --text-body:var(--ink-700); --text-muted:var(--ink-500); --text-subtle:var(--ink-400);
+  --text-on-dark:var(--white);
+  --surface-page:var(--white); --surface-soft:var(--gray-50); --surface-strong:var(--gray-100); --surface-brand:var(--navy-700); --surface-brand-soft:var(--navy-50);
+  --border-hairline:var(--line-300); --border-soft:var(--line-200); --border-strong:var(--line-400); --border-focus:var(--navy-700);
+  --action-primary:var(--navy-700); --action-primary-hover:var(--navy-800); --action-primary-press:var(--navy-900); --action-primary-disabled:var(--navy-200);
+  /* 상태 색: 구매함=주황, 집에 있음=하늘, 다 읽음=초록 */
+  --st-bought:var(--orange-700); --st-bought-bg:var(--orange-50); --st-bought-bar:var(--orange-500);
+  --st-have:var(--sky-600); --st-have-bg:var(--sky-50); --st-have-bar:var(--sky-500);
+  --st-read:var(--green-700); --st-read-bg:var(--green-50); --st-read-bar:var(--green-600);
+  --font-sans:"Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, sans-serif;
+  --radius-card:16px; --radius-button:10px; --radius-field:10px; --radius-full:9999px;
+  --dur-fast:120ms; --dur-base:200ms; --ease:cubic-bezier(.2,.8,.2,1);
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #121a17; --paper: #1a2420; --ink: #e6efeb; --muted: #9fb0a9; --line: #2c3a35;
-    --board: #7cc4ad; --board-soft: #1f3530; --none: #7d8c86;
-    --bought: #e3a94a; --bought-soft: #3a2e17; --have: #7fb0ea; --have-soft: #1b2c40;
-    --read: #6fcf97; --read-soft: #193726; --new: #f07ea1;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #121a17; --paper: #1a2420; --ink: #e6efeb; --muted: #9fb0a9; --line: #2c3a35;
-  --board: #7cc4ad; --board-soft: #1f3530; --none: #7d8c86;
-  --bought: #e3a94a; --bought-soft: #3a2e17; --have: #7fb0ea; --have-soft: #1b2c40;
-  --read: #6fcf97; --read-soft: #193726; --new: #f07ea1;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
-.wrap { max-width: 760px; margin: 0 auto; padding-block: 28px 56px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-  display: flex; flex-direction: column; gap: 20px; }
-header { display: flex; flex-direction: column; gap: 6px; }
-.eyebrow { font-size: 12px; letter-spacing: .08em; color: var(--board); font-weight: 700; }
-h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(28px, 6vw, 38px); line-height: 1.15; margin: 0; text-wrap: balance; }
-.lede { margin: 0; color: var(--muted); }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--surface-page); color: var(--text-body); font-family: var(--font-sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; word-break: keep-all; text-wrap: pretty; }
+h1, h2 { margin: 0; color: var(--text-title); font-weight: 600; }
+p { margin: 0; }
+button, input { font: inherit; color: inherit; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+.lucide { width: 20px; height: 20px; flex: none; }
 
-.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.stat { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.stat b { font-family: var(--f-display); font-weight: 400; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.stat span { font-size: 12px; color: var(--muted); }
-.stat.read b { color: var(--read); } .stat.have b { color: var(--have); } .stat.bought b { color: var(--bought); } .stat.none b { color: var(--none); }
-.bar { grid-column: 1 / -1; height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; display: flex; }
-.bar i { display: block; height: 100%; transition: width .3s; }
-.bar .r { background: var(--read); } .bar .h { background: var(--have); } .bar .b { background: var(--bought); }
+.band { background: var(--surface-brand); color: var(--text-on-dark); margin-top: calc(-1 * env(safe-area-inset-top, 0px)); padding-top: env(safe-area-inset-top, 0px); }
+.inner { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band .inner { padding-block: 40px 36px; display: flex; flex-direction: column; gap: 8px; }
+.overline { font-size: 11px; line-height: 1.3; letter-spacing: .08em; font-weight: 600; text-transform: uppercase; }
+.band .overline { color: var(--navy-200); }
+.band h1 { color: var(--text-on-dark); font-size: 32px; line-height: 1.3; letter-spacing: -.6px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.band h1 .lucide { width: 28px; height: 28px; }
+.band p { color: var(--navy-100); font-size: 15px; }
 
-.tabs { display: flex; gap: 8px; border-bottom: 2px solid var(--line); }
-.tab { font: inherit; font-weight: 700; font-size: 16px; background: none; border: 0; color: var(--muted); padding: 10px 6px; margin-bottom: -2px; border-bottom: 3px solid transparent; cursor: pointer; }
-.tab[aria-selected="true"] { color: var(--board); border-bottom-color: var(--board); }
-.tab small { font-weight: 500; font-size: 13px; margin-left: 4px; font-variant-numeric: tabular-nums; }
-.filters { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--board); border-color: var(--board); color: var(--paper); }
+main.inner { padding-block: 32px 64px; display: flex; flex-direction: column; gap: 24px; }
 
-.note { margin: 0; font-size: 13px; color: var(--muted); background: var(--board-soft); border-radius: 8px; padding: 8px 12px; }
+.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.stat { border: 1px solid var(--border-hairline); border-radius: var(--radius-card); padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.stat b { font-size: 32px; line-height: 1.1; letter-spacing: -.6px; font-weight: 700; color: var(--text-title); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+.stat span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--line-400); }
+.stat.read span::before { background: var(--st-read-bar); } .stat.have span::before { background: var(--st-have-bar); } .stat.bought span::before { background: var(--st-bought-bar); }
+.bar { grid-column: 1 / -1; height: 8px; border-radius: var(--radius-full); background: var(--surface-strong); overflow: hidden; display: flex; }
+.bar i { display: block; height: 100%; transition: width var(--dur-base) var(--ease); }
+.bar .r { background: var(--st-read-bar); } .bar .h { background: var(--st-have-bar); } .bar .b { background: var(--st-bought-bar); }
 
-.lock { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
-.lock label { font-size: 14px; font-weight: 700; flex: 1 1 200px; }
-.lock label small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
-.lock input { font: inherit; font-size: 18px; letter-spacing: .3em; width: 7.5em; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); text-align: center; }
-.lock button { font: inherit; font-weight: 700; border: 0; border-radius: 8px; padding: 8px 16px; background: var(--board); color: var(--paper); cursor: pointer; }
-.unlocked { font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
-.unlocked button { font: inherit; font-size: 12px; background: none; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); padding: 2px 10px; cursor: pointer; }
-.group { display: flex; flex-direction: column; gap: 8px; }
-.group h2 { font-family: var(--f-display); font-weight: 400; font-size: 20px; margin: 8px 0 0; display: flex; align-items: baseline; gap: 8px; }
-.group h2 small { font-family: var(--f-body); font-size: 12px; color: var(--muted); }
-.book { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
-.book[data-s="read"] { border-color: var(--read); }
-.top { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; }
+.lock { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; background: var(--surface-brand-soft); border: 1px solid var(--navy-200); border-radius: var(--radius-card); padding: 16px 20px; }
+.lock .lucide { color: var(--action-primary); }
+.lock label { font-size: 15px; font-weight: 600; color: var(--text-title); flex: 1 1 220px; line-height: 1.5; }
+.lock label small { display: block; font-weight: 400; color: var(--text-muted); font-size: 13px; }
+.lock input { font-size: 18px; letter-spacing: .3em; width: 7.5em; padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-field); background: var(--white); color: var(--text-title); text-align: center; }
+.lock input:focus-visible { outline: none; border: 2px solid var(--border-focus); padding: 7px 11px; }
+.btn { border: 0; border-radius: var(--radius-button); padding: 10px 18px; font-size: 15px; line-height: 1.25; font-weight: 600; background: var(--action-primary); color: var(--white); cursor: pointer; transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+.btn:hover { background: var(--action-primary-hover); }
+.btn:active { background: var(--action-primary-press); transform: scale(.985); }
+.unlocked { font-size: 13px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.unlocked .lucide { width: 16px; height: 16px; color: var(--st-read); }
+.unlocked button { font-size: 13px; background: var(--white); border: 1px solid var(--border-hairline); border-radius: var(--radius-full); color: var(--text-muted); padding: 2px 12px; cursor: pointer; }
+.unlocked button:hover { background: var(--surface-soft); border-color: var(--border-strong); }
+
+.tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--border-hairline); }
+.tab { background: none; border: 0; color: var(--text-muted); font-size: 18px; font-weight: 600; padding: 10px 0; margin-bottom: -1px; border-bottom: 2px solid transparent; cursor: pointer; transition: color var(--dur-fast) var(--ease); }
+.tab:hover { color: var(--text-title); }
+.tab[aria-selected="true"] { color: var(--action-primary); border-bottom-color: var(--action-primary); }
+.tab small { font-weight: 500; font-size: 13px; margin-left: 6px; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: -8px; }
+.chip { font-size: 14px; border: 1px solid var(--border-hairline); background: var(--white); color: var(--text-body); border-radius: var(--radius-full); padding: 6px 14px; cursor: pointer; transition: background var(--dur-fast) var(--ease); }
+.chip:hover { background: var(--surface-soft); border-color: var(--border-strong); }
+.chip[aria-pressed="true"] { background: var(--action-primary); border-color: var(--action-primary); color: var(--white); }
+
+.note { font-size: 14px; color: var(--text-body); background: var(--surface-soft); border: 1px solid var(--border-soft); border-radius: var(--radius-button); padding: 10px 14px; }
+
+.group { display: flex; flex-direction: column; gap: 12px; }
+.group + .group { margin-top: 16px; }
+.group h2 { font-size: 20px; line-height: 1.4; letter-spacing: -.2px; display: flex; align-items: baseline; gap: 8px; }
+.group h2 small { font-size: 13px; font-weight: 400; color: var(--text-muted); }
+.book { background: var(--white); border: 1px solid var(--border-hairline); border-radius: var(--radius-card); padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.book[data-s="read"] { background: var(--st-read-bg); border-color: var(--green-100); }
+.top { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
 .meta { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.title { font-weight: 700; font-size: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.book[data-s="read"] .title span { text-decoration: line-through; text-decoration-color: var(--read); text-decoration-thickness: 2px; }
-.badge { font-size: 11px; font-weight: 700; color: var(--new); border: 1px solid var(--new); border-radius: 99px; padding: 0 7px; }
-.sub { font-size: 13px; color: var(--muted); }
-.done { font-size: 12px; color: var(--read); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: var(--bg); border-radius: 10px; padding: 3px; }
-.seg button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--muted); border-radius: 8px; padding: 7px 2px; cursor: pointer; white-space: nowrap; }
-.seg button:hover:not(:disabled) { color: var(--ink); }
-.seg button[aria-pressed="true"][data-v="none"] { background: var(--paper); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
-.seg button[aria-pressed="true"][data-v="bought"] { background: var(--bought-soft); color: var(--bought); font-weight: 700; }
-.seg button[aria-pressed="true"][data-v="have"] { background: var(--have-soft); color: var(--have); font-weight: 700; }
-.seg button[aria-pressed="true"][data-v="read"] { background: var(--read-soft); color: var(--read); font-weight: 700; }
-.seg button:disabled { cursor: default; opacity: .55; }
-button:focus-visible { outline: 2px solid var(--board); outline-offset: 2px; }
-.empty { color: var(--muted); text-align: center; padding: 24px 0; margin: 0; }
-footer { font-size: 12px; color: var(--muted); }
-@media (max-width: 520px) { .summary { grid-template-columns: repeat(2, 1fr); } }
-@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+.title { font-weight: 600; font-size: 16px; line-height: 1.5; color: var(--text-title); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.book[data-s="read"] .title span:first-child { text-decoration: line-through; text-decoration-color: var(--st-read-bar); text-decoration-thickness: 2px; }
+.badge { font-size: 11px; line-height: 1.2; font-weight: 600; color: var(--navy-700); background: var(--navy-100); border-radius: var(--radius-full); padding: 3px 8px; }
+.sub { font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+.done { font-size: 13px; color: var(--st-read); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: var(--surface-strong); border-radius: var(--radius-button); padding: 3px; }
+.seg button { font-size: 14px; border: 0; background: transparent; color: var(--text-muted); border-radius: 8px; padding: 8px 2px; cursor: pointer; white-space: nowrap; transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.seg button:hover:not(:disabled) { color: var(--text-title); background: var(--white); }
+.seg button[aria-pressed="true"][data-v="none"] { background: var(--white); color: var(--text-title); box-shadow: inset 0 0 0 1px var(--border-hairline); }
+.seg button[aria-pressed="true"][data-v="bought"] { background: var(--orange-100); color: var(--st-bought); font-weight: 600; }
+.seg button[aria-pressed="true"][data-v="have"] { background: var(--sky-100); color: var(--st-have); font-weight: 600; }
+.seg button[aria-pressed="true"][data-v="read"] { background: var(--green-100); color: var(--st-read); font-weight: 600; }
+.seg button:disabled { cursor: not-allowed; color: var(--text-subtle); }
+.empty { color: var(--text-muted); text-align: center; padding: 32px 0; }
+footer { font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-soft); padding-top: 16px; }
+@media (max-width: 560px) {
+  .summary { grid-template-columns: repeat(2, 1fr); }
+  .band .inner { padding-block: 28px 24px; }
+  .band h1 { font-size: 26px; letter-spacing: -.4px; }
+  .stat b { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div class="eyebrow">새 학년 준비 · 초등 3학년</div>
-    <h1>겨울방학 독서 기록장</h1>
-    <p class="lede">책마다 상태 버튼을 누르면 바로 저장됩니다. <b>새 추천</b> 표시는 이번에 추가한 책입니다.</p>
-  </header>
+<header class="band">
+  <div class="inner">
+    <div class="overline">Reading Log · 새 학년 준비 초등 3학년</div>
+    <h1><i data-lucide="book-open"></i>겨울방학 독서 기록장</h1>
+    <p>책마다 상태 버튼을 누르면 바로 저장됩니다. ‘새 추천’ 표시는 최근에 추가한 책입니다.</p>
+  </div>
+</header>
 
+<main class="inner">
   <section class="summary" aria-label="전체 진행 현황">
     <div class="stat read"><b id="c-read">0</b><span>다 읽음</span></div>
     <div class="stat have"><b id="c-have">0</b><span>집에 있음</span></div>
@@ -124,6 +139,14 @@ footer { font-size: 12px; color: var(--muted); }
     <div class="stat none"><b id="c-none">0</b><span>아직 없음</span></div>
     <div class="bar" role="img" id="bar" aria-label="진행률"><i class="r"></i><i class="h"></i><i class="b"></i></div>
   </section>
+
+  <form class="lock" id="lock" hidden>
+    <i data-lucide="lock"></i>
+    <label for="code">가족 암호를 입력하면 체크할 수 있습니다<small>이 기기에서 한 번만 입력하면 됩니다. 암호가 없으면 보기만 할 수 있습니다.</small></label>
+    <input id="code" type="password" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="····">
+    <button class="btn" type="submit">확인</button>
+  </form>
+  <div class="unlocked" id="unlocked" hidden><i data-lucide="lock-open"></i>이 기기에서 체크할 수 있습니다. <button type="button" id="relock">암호 지우기</button></div>
 
   <div class="tabs" role="tablist">
     <button class="tab" id="tab-novel" role="tab" data-tab="novel" aria-selected="true">소설책<small id="n-novel"></small></button>
@@ -135,17 +158,12 @@ footer { font-size: 12px; color: var(--muted); }
     <button class="chip" id="f-ready" data-f="ready" aria-pressed="false">읽을 준비됨 (구매·보유)</button>
     <button class="chip" id="f-read" data-f="read" aria-pressed="false">다 읽음</button>
   </div>
-  <form class="lock" id="lock" hidden>
-    <label for="code">가족 암호를 입력하면 체크할 수 있습니다<small>이 기기에서 한 번만 입력하면 됩니다. 암호가 없으면 보기만 가능합니다.</small></label>
-    <input id="code" type="password" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="••••">
-    <button type="submit">확인</button>
-  </form>
-  <div class="unlocked" id="unlocked" hidden>🔓 이 기기에서 체크할 수 있습니다 <button type="button" id="relock">암호 지우기</button></div>
-  <p class="note" id="note">저장된 기록을 불러오는 중입니다…</p>
+  <p class="note" id="note">불러오는 중입니다.</p>
   <div id="list"></div>
   <footer>‘다 읽음’을 누르면 그날 날짜가 함께 기록됩니다. 출판사·판본은 바뀔 수 있으니 도서관에서 먼저 빌려 보셔도 좋습니다.</footer>
-</div>
+</main>
 
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <script>
 const BOOKS = [
   // 소설 1단계
@@ -216,7 +234,7 @@ const $ = (id) => document.getElementById(id);
 function st(id){ return (statuses[id] && statuses[id].status) || "none"; }
 function setNote(msg){ const n = $("note"); n.textContent = msg || ""; n.hidden = !msg; }
 function today(){ const d = new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
-function fmt(s){ const p = String(s).split("-"); return p.length===3 ? (+p[1])+"/"+(+p[2])+" 완독" : "완독"; }
+function fmt(s){ const p = String(s).split("-"); return p.length===3 ? p.join(".")+" 완독" : "완독"; }
 function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text!=null) e.textContent = text; return e; }
 
 function render(){
@@ -325,6 +343,7 @@ async function load(){
   }
   render();
 }
+try { lucide.createIcons({ attrs: { "stroke-width": 1.75 } }); } catch (e) {}
 load();
 setInterval(() => { if (document.visibilityState === "visible") load(); }, 30000);
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") load(); });
